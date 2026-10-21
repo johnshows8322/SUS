@@ -1,148 +1,21 @@
-const socket = io();
-const app = document.getElementById('app');
-const msg = document.getElementById('msg');
-const join = document.getElementById('join');
-let state = null, playerId = null, host = false, selected = null, decoy = null;
-
-document.getElementById('create').onclick = () => { host = true; socket.emit('createRoom'); };
-document.getElementById('showJoin').onclick = () => join.classList.toggle('hidden');
-join.onsubmit = event => {
-  event.preventDefault();
-  socket.emit('joinRoom', {
-    code: document.getElementById('code').value.trim().toUpperCase(),
-    name: document.getElementById('name').value.trim()
-  });
-};
-
-socket.on('created', roomCode => {
-  app.innerHTML = '<h1>Room ready</h1><p>Players join on their phones with this code:</p><div class="code">' +
-    esc(roomCode) + '</div><p>Keep this screen open as the host display.</p><div id="hoststate"></div>';
-});
-socket.on('joined', id => { playerId = id; msg.textContent = 'You joined! Keep this page open.'; });
-socket.on('errorMessage', message => { msg.textContent = message; });
-socket.on('notice', message => { msg.textContent = message; });
-
-socket.on('state', next => {
-  if (!state || next.round !== state.round || next.phase !== state.phase) {
-    selected = null;
-    decoy = null;
-  }
-  state = next;
-  if (host) {
-    renderHost(next);
-    return;
-  }
-  renderPlayer(next);
-});
-
-function renderHost(s) {
-  const el = document.getElementById('hoststate');
-  if (!el) return;
-  const playerRows = s.players.map(p =>
-    '<div class="item">' + esc(p.name) + ' — ' + p.score + ' pts ' +
-    (p.connected ? '' : '· disconnected') +
-    (s.phase === 'writing' ? (p.answered ? ' · fake submitted' : ' · writing…') :
-      s.phase === 'voting' ? (p.voted ? ' · voted' : ' · choosing…') : '') + '</div>'
-  ).join('');
-  el.innerHTML = '<h2>' + esc(phaseName(s.phase)) + (s.round ? ' · Round ' + s.round + '/7' : '') +
-    '</h2><div class="players">' + playerRows + '</div>' +
-    (s.phase === 'lobby' ? '<button id="start" ' + (s.players.length < 3 ? 'disabled' : '') +
-      '>Start game (' + s.players.length + '/3 minimum)</button>' : '') +
-    (s.question ? '<div class="question">' + esc(s.question.question) + '</div>' : '') +
-    (s.phase === 'reveal' ? '<p>Truth: ' + esc(s.answers.find(a => a.truth)?.text || '') +
-      ' · Decoy: ' + esc(s.answers.find(a => a.decoy)?.text || '') + '</p>' : '') +
-    (s.phase === 'final' ? '<h2>Final scores</h2><ol>' +
-      s.finalScores.map(p => '<li>' + esc(p.name) + ' — ' + p.score + '</li>').join('') + '</ol>' : '');
-  const start = document.getElementById('start');
-  if (start) start.onclick = () => socket.emit('startGame');
-}
-
-function renderPlayer(s) {
-  if (!s.me) {
-    app.innerHTML = '<h2>Waiting to join…</h2>';
-    return;
-  }
-  let body = '<span class="pill">Room ' + esc(s.code) + ' · ' + esc(phaseName(s.phase)) +
-    '</span><h2>Hello, ' + esc(s.me.name) + '!</h2><p>Score: ' + s.me.score + ' points</p>';
-
-  if (s.phase === 'lobby') {
-    body += '<p>Waiting for the host to start. Three or more players are needed.</p><div class="players">' +
-      s.players.map(p => '<div class="item">' + esc(p.name) + '</div>').join('') + '</div>';
-  }
-  if (s.phase === 'writing') {
-    body += '<p class="muted">' + esc(s.question.category) + ' · Round ' + s.round + ' of 7</p>' +
-      '<section class="question-card"><div class="question-label">YOUR TRIVIA QUESTION</div><div class="question">' + esc(s.question.question) + '</div></section>' +
-      (s.me.answered ? '<div class="item">✅ Your fake is locked in. Waiting for everyone…</div>' :
-        '<form id="answer"><input id="fake" maxlength="55" placeholder="Invent a believable fake answer" required><button>Submit fake</button></form>');
-  }
-  if (s.phase === 'voting') {
-    body += '<p class="muted">' + esc(s.question.category) + ' · Round ' + s.round + ' of 7</p>' +
-      '<section class="question-card"><div class="question-label">SAME QUESTION — CHOOSE THE TRUE ANSWER</div><div class="question">' + esc(s.question.question) + '</div></section>' +
-      '<p>Pick the real answer. Optionally flag one different answer as the Decoy.</p><div class="answers">' +
-      s.answers.map(a => '<button data-vote="' + esc(a.id) + '" ' +
-        ((a.own || s.me.voted) ? 'disabled' : '') + '>' + esc(a.text) +
-        (a.own ? ' (your answer)' : '') + '</button>').join('') + '</div>' +
-      '<p class="muted">Tap one answer for truth. Then tap a different answer if you want to flag the Decoy.</p>' +
-      (s.me.voted ? '<div class="item">✅ Vote locked in. Waiting for everyone…</div>' :
-        '<button id="sendvote" ' + (!selected ? 'disabled' : '') + '>Lock in vote</button>');
-  }
-  if (s.phase === 'reveal') {
-    body += '<h2>Round reveal</h2><div class="answers">' +
-      s.answers.map(a => '<div class="item">' + esc(a.text) + ' — ' +
-        (a.truth ? '✅ TRUTH' : a.decoy ? '🕵️ DECOY' : 'Fake') +
-        (a.authors?.length ? ' · written by ' + esc(a.authors.join(', ')) : '') + '</div>').join('') +
-      '</div><p>Next round starts automatically.</p>';
-  }
-  if (s.phase === 'final') {
-    body += '<h2>Final standings</h2><ol>' +
-      s.finalScores.map(p => '<li>' + esc(p.name) + ' — ' + p.score + ' points</li>').join('') + '</ol>';
-  }
-
-  app.innerHTML = body;
-  const form = document.getElementById('answer');
-  if (form) form.onsubmit = event => {
-    event.preventDefault();
-    const input = document.getElementById('fake');
-    if (!input.value.trim()) return;
-    socket.emit('submitAnswer', input.value);
-  };
-
-  document.querySelectorAll('[data-vote]').forEach(button => {
-    button.onclick = () => {
-      if (s.me.voted || button.disabled) return;
-      const id = button.dataset.vote;
-      if (!selected) {
-        selected = id;
-      } else if (selected === id) {
-        selected = null;
-        if (decoy === id) decoy = null;
-      } else if (decoy === id) {
-        decoy = null;
-      } else {
-        decoy = id;
-      }
-      document.querySelectorAll('[data-vote]').forEach(item => {
-        item.classList.toggle('selected', item.dataset.vote === selected || item.dataset.vote === decoy);
-      });
-      const voteButton = document.getElementById('sendvote');
-      if (voteButton) voteButton.disabled = !selected;
-    };
-  });
-
-  const voteButton = document.getElementById('sendvote');
-  if (voteButton) voteButton.onclick = () => {
-    if (!selected || s.me.voted) return;
-    socket.emit('vote', { answerId: selected, decoyId: decoy && decoy !== selected ? decoy : null });
-    voteButton.disabled = true;
-    voteButton.textContent = 'Submitting…';
-  };
-}
-
-function phaseName(phase) {
-  return ({ lobby: 'Lobby', writing: 'Write a fake', voting: 'Vote for truth', reveal: 'Reveal', final: 'Game over' })[phase] || phase;
-}
-function esc(value) {
-  return String(value ?? '').replace(/[&<>"']/g, char =>
-    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]
-  );
-}
+const socket=io(),app=document.getElementById('app'),msg=document.getElementById('msg'),join=document.getElementById('join'),KEY='sus.playerSession';let state=null,host=false,selected=null,decoy=null,session=null;try{session=JSON.parse(localStorage.getItem(KEY)||'null')}catch{}
+const style=document.createElement('style');style.textContent='.how-to-panel{margin:14px 0;padding:18px;border:1px solid #765a91;border-radius:14px;background:#191024}.how-to-panel li{margin:8px 0;line-height:1.5}.podium{margin:24px 0}.podium h2{text-align:center;color:#f7c95b}.podium-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.podium-place{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;padding:16px 8px;background:#342546;border:1px solid #6c5081;border-radius:14px;min-height:112px;overflow-wrap:anywhere}.place-1{min-height:150px;border-color:#f7c95b;background:#493b2a}.medal{font-size:28px}.podium-place span{color:#f7c95b;font-weight:800}.standings li{padding:8px 0;border-bottom:1px solid #49335e}';document.head.appendChild(style);
+const landingHow=document.createElement('button');landingHow.className='secondary';landingHow.textContent='How to Play';landingHow.onclick=()=>document.getElementById('landingRules').classList.toggle('hidden');const rules=document.createElement('section');rules.id='landingRules';rules.className='how-to-panel hidden';rules.innerHTML='<h3>How to Play SUS</h3><ol><li><b>Invent a fake:</b> Submit a believable made-up answer to the trivia question. Don’t submit the real answer.</li><li><b>Find the truth:</b> Choose the real answer from the shuffled options. You cannot vote for your own fake.</li><li><b>Flag the Decoy:</b> Optionally tap a different answer to flag the secretly planted Decoy, then lock in your vote.</li></ol><h4>Scoring</h4><ul><li>Correct truth vote: <b>+1,000</b></li><li>Each player fooled by your fake: <b>+500</b></li><li>Correctly flag the Decoy: <b>+250</b></li><li><b>Round 7 is double points.</b></li></ul>';document.querySelector('.actions').append(landingHow);document.querySelector('.actions').after(rules);
+document.getElementById('create').onclick=()=>{host=true;socket.emit('createRoom')};document.getElementById('showJoin').onclick=()=>join.classList.toggle('hidden');
+join.onsubmit=e=>{e.preventDefault();const code=document.getElementById('code').value.trim().toUpperCase(),name=document.getElementById('name').value.trim();session={code,name,playerId:session?.code===code&&session?.name?.toLowerCase()===name.toLowerCase()?session.playerId:null};localStorage.setItem(KEY,JSON.stringify(session));socket.emit('joinRoom',session)};
+socket.on('connect',()=>{if(session?.code&&session?.name&&session?.playerId&&!host)socket.emit('joinRoom',session)});
+socket.on('created',c=>{host=true;app.innerHTML='<h1>Room ready</h1><p>Players join on their phones with this code:</p><div class="code">'+esc(c)+'</div><p>Keep this screen open as the host display.</p><div id="hoststate"></div>';});
+socket.on('joined',id=>{if(session){session.playerId=id;localStorage.setItem(KEY,JSON.stringify(session))}msg.textContent='You joined! Your session can reconnect if you refresh.'});socket.on('errorMessage',m=>msg.textContent=m);socket.on('notice',m=>msg.textContent=m);
+socket.on('state',s=>{if(!state||s.round!==state.round||s.phase!==state.phase){selected=null;decoy=null}state=s;if(host)renderHost(s);else renderPlayer(s)});
+function how(id){return '<button type="button" class="secondary" id="'+id+'">How to Play</button><section class="how-to-panel hidden" id="'+id+'Panel">'+rules.innerHTML+'</section>'}function bindHow(id){const b=document.getElementById(id),p=document.getElementById(id+'Panel');if(b&&p)b.onclick=()=>p.classList.toggle('hidden')}
+function podium(scores){return '<section class="podium"><h2>🏆 SUS Podium</h2><div class="podium-grid">'+scores.slice(0,3).map((p,i)=>'<div class="podium-place place-'+(i+1)+'"><div class="medal">'+['🥇','🥈','🥉'][i]+'</div><strong>'+esc(p.name)+'</strong><span>'+p.score+' pts</span></div>').join('')+'</div></section><h2>Full standings</h2><ol class="standings">'+scores.map(p=>'<li><b>'+esc(p.name)+'</b> — '+p.score+' points'+(p.connected===false?' (disconnected)':'')+'</li>').join('')+'</ol>'}
+function renderHost(s){const el=document.getElementById('hoststate');if(!el)return;el.innerHTML='<h2>'+esc(phaseName(s.phase))+(s.round?' · Round '+s.round+'/7':'')+'</h2><div class="players">'+s.players.map(p=>'<div class="item">'+esc(p.name)+' — '+p.score+' pts '+(p.connected?'':'· disconnected')+(s.phase==='writing'?(p.answered?' · fake submitted':p.connected?' · writing…':''):s.phase==='voting'?(p.voted?' · voted':p.connected?' · choosing…':''):'')+'</div>').join('')+'</div>'+(s.phase==='lobby'?'<button id="start" '+(s.players.filter(p=>p.connected).length<3?'disabled':'')+'>Start game ('+s.players.filter(p=>p.connected).length+'/3 minimum)</button>'+how('hostHow'):'')+(s.question?'<div class="question">'+esc(s.question.question)+'</div>':'')+(s.phase==='reveal'?'<p>Truth: '+esc(s.answers.find(a=>a.truth)?.text||'')+' · Decoy: '+esc(s.answers.find(a=>a.decoy)?.text||'')+'</p>':'')+(s.phase==='final'?podium(s.finalScores)+'<button id="playAgain">Play Again</button>':'');bindHow('hostHow');const b=document.getElementById('start');if(b)b.onclick=()=>socket.emit('startGame');const a=document.getElementById('playAgain');if(a)a.onclick=()=>socket.emit('playAgain')}
+function renderPlayer(s){if(!s.me){app.innerHTML='<h2>Waiting to join…</h2>';return}let b='<span class="pill">Room '+esc(s.code)+' · '+esc(phaseName(s.phase))+'</span><h2>Hello, '+esc(s.me.name)+'!</h2><p>Score: '+s.me.score+' points</p>';
+if(s.phase==='lobby')b+='<p>Waiting for the host to start. Three or more connected players are needed.</p><div class="players">'+s.players.map(p=>'<div class="item">'+esc(p.name)+(p.connected?'':' · disconnected')+'</div>').join('')+'</div>'+how('playerHow');
+if(s.phase==='writing')b+='<p class="muted">'+esc(s.question.category)+' · Round '+s.round+' of 7</p><section class="question-card"><div class="question-label">YOUR TRIVIA QUESTION</div><div class="question">'+esc(s.question.question)+'</div></section>'+(s.me.answered?'<div class="item">✅ Your fake is locked in. Waiting for everyone…</div>':'<form id="answer"><input id="fake" maxlength="55" placeholder="Invent a believable fake answer" required><button>Submit fake</button></form>');
+if(s.phase==='voting')b+='<p class="muted">'+esc(s.question.category)+' · Round '+s.round+' of 7</p><section class="question-card"><div class="question-label">SAME QUESTION — CHOOSE THE TRUE ANSWER</div><div class="question">'+esc(s.question.question)+'</div></section><p>Pick the real answer. Optionally flag one different answer as the Decoy.</p><div class="answers">'+s.answers.map(a=>'<button data-vote="'+esc(a.id)+'" '+((a.own||s.me.voted)?'disabled':'')+'>'+esc(a.text)+(a.own?' (your answer)':'')+'</button>').join('')+'</div><p class="muted">Tap one answer for truth. Then tap a different answer if you want to flag the Decoy.</p>'+(s.me.voted?'<div class="item">✅ Vote locked in. Waiting for everyone…</div>':'<button id="sendvote" '+(!selected?'disabled':'')+'>Lock in vote</button>');
+if(s.phase==='reveal')b+='<h2>Round reveal</h2><div class="answers">'+s.answers.map(a=>'<div class="item">'+esc(a.text)+' — '+(a.truth?'✅ TRUTH':a.decoy?'🕵️ DECOY':'Fake')+(a.authors?.length?' · written by '+esc(a.authors.join(', ')):'')+'</div>').join('')+'</div><p>Next round starts automatically.</p>';if(s.phase==='final')b+=podium(s.finalScores)+'<button id="playAgain">Play Again</button>';app.innerHTML=b;bindHow('playerHow');
+const f=document.getElementById('answer');if(f)f.onsubmit=e=>{e.preventDefault();const x=document.getElementById('fake');if(x.value.trim())socket.emit('submitAnswer',x.value)};
+document.querySelectorAll('[data-vote]').forEach(x=>x.onclick=()=>{if(s.me.voted||x.disabled)return;const id=x.dataset.vote;if(!selected)selected=id;else if(selected===id){selected=null;if(decoy===id)decoy=null}else if(decoy===id)decoy=null;else decoy=id;document.querySelectorAll('[data-vote]').forEach(y=>y.classList.toggle('selected',y.dataset.vote===selected||y.dataset.vote===decoy));const v=document.getElementById('sendvote');if(v)v.disabled=!selected});
+const v=document.getElementById('sendvote');if(v)v.onclick=()=>{if(!selected||s.me.voted)return;socket.emit('vote',{answerId:selected,decoyId:decoy&&decoy!==selected?decoy:null});v.disabled=true;v.textContent='Submitting…'};const a=document.getElementById('playAgain');if(a)a.onclick=()=>socket.emit('playAgain')}
+function phaseName(p){return({lobby:'Lobby',writing:'Write a fake',voting:'Vote for truth',reveal:'Reveal',final:'Game over'})[p]||p}function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
