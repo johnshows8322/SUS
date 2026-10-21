@@ -1,26 +1,197 @@
-const express=require('express');
-const http=require('http');
-const crypto=require('crypto');
-const {Server}=require('socket.io');
-const QUESTIONS=require('./questions.json');
-const app=express(),server=http.createServer(app),io=new Server(server);
-const rooms=new Map(),PORT=process.env.PORT||3000;
+const express = require('express');
+const http = require('http');
+const crypto = require('crypto');
+const { Server } = require('socket.io');
+const QUESTIONS = require('./questions.json');
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+const rooms = new Map();
+const PORT = process.env.PORT || 3000;
+
 app.use(express.static('public'));
-app.get('/health',(_q,s)=>s.json({ok:true,rooms:rooms.size}));
-function token(){return crypto.randomBytes(8).toString('hex')}
-function code(){let c;do{c=Array.from({length:4},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.random()*24|0]).join('')}while(rooms.has(c));return c}
-function pub(r,who){return {code:r.code,phase:r.phase,round:r.round,players:r.players.map(p=>({id:p.id,name:p.name,score:p.score,connected:p.connected})),question:r.q?{category:r.q.category,question:r.q.question}:null,answers:['voting','reveal','final'].includes(r.phase)?r.board.map(a=>({id:a.id,text:a.text,truth:['reveal','final'].includes(r.phase)?a.truth:undefined,decoy:['reveal','final'].includes(r.phase)?a.decoy:undefined,authors:['reveal','final'].includes(r.phase)?a.authors.map(id=>r.players.find(p=>p.id===id)?.name||'Player'):undefined,own:a.authors.includes(who)})):[],me:r.players.find(p=>p.id===who)||null,finalScores:r.finalScores}}
-function send(r){if(r.host)io.to(r.host).emit('state',pub(r,null));for(const p of r.players)if(p.socket)io.to(p.socket).emit('state',pub(r,p.id))}
-function timer(r,ms,fn){clearTimeout(r.timer);r.timer=setTimeout(fn,ms)}
-function begin(r){if(r.round>=7){r.phase='final';r.finalScores=[...r.players].sort((a,b)=>b.score-a.score).map((p,i)=>({...p,rank:i+1}));send(r);return}r.round++;r.q=QUESTIONS[(Math.random()*QUESTIONS.length)|0];r.answers={};r.votes={};r.flags={};r.phase='writing';send(r);timer(r,45000,()=>board(r))}
-function board(r){const map=new Map();for(const [id,text] of Object.entries(r.answers)){const k=text.trim().toLowerCase();if(!map.has(k))map.set(k,{id:token(),text,authors:[],truth:false,decoy:false});map.get(k).authors.push(id)}r.board=[...map.values(),{id:token(),text:r.q.answer,authors:[],truth:true,decoy:false},{id:token(),text:r.q.decoy,authors:[],truth:false,decoy:true}].sort(()=>Math.random()-.5);r.phase='voting';send(r);timer(r,30000,()=>reveal(r))}
-function reveal(r){for(const [pid,aid] of Object.entries(r.votes)){const a=r.board.find(x=>x.id===aid),p=r.players.find(x=>x.id===pid);if(!a||!p)continue;if(a.truth)p.score+=r.round===7?2000:1000;if(!a.truth&&!a.decoy&&!a.authors.includes(pid))a.authors.forEach(id=>{const author=r.players.find(x=>x.id===id);if(author)author.score+=r.round===7?1000:500})}for(const [pid,aid] of Object.entries(r.flags)){if(r.board.find(a=>a.id===aid)?.decoy){const p=r.players.find(x=>x.id===pid);if(p)p.score+=r.round===7?500:250}}r.phase='reveal';send(r);timer(r,7000,()=>begin(r))}
-io.on('connection',s=>{
-s.on('createRoom',()=>{const c=code(),r={code:c,host:s.id,players:[],phase:'lobby',round:0};rooms.set(c,r);s.data.host=c;s.emit('created',c);send(r)});
-s.on('joinRoom',({code:c,name})=>{const r=rooms.get(String(c||'').toUpperCase()),n=String(name||'').trim().slice(0,18);if(!r)return s.emit('errorMessage','Room code not found.');if(!n)return s.emit('errorMessage','Enter your name.');if(r.players.length>=8)return s.emit('errorMessage','Room is full.');if(r.players.some(p=>p.name.toLowerCase()===n.toLowerCase()))return s.emit('errorMessage','That name is already taken.');const p={id:token(),name:n,score:0,socket:s.id,connected:true};r.players.push(p);s.data.room=r.code;s.data.player=p.id;s.emit('joined',p.id);send(r)});
-s.on('startGame',()=>{const r=rooms.get(s.data.host);if(r&&r.host===s.id&&r.phase==='lobby'&&r.players.length>=3)begin(r)});
-s.on('submitAnswer',text=>{const r=rooms.get(s.data.room);if(!r||r.phase!=='writing'||!r.players.some(p=>p.id===s.data.player))return;const a=String(text||'').trim().slice(0,55);if(!a)return;if(a.toLowerCase()===r.q.answer.toLowerCase())return s.emit('errorMessage','That is the truth! Make up a fake.');r.answers[s.data.player]=a;s.emit('notice','Answer submitted!');send(r);if(r.players.every(p=>r.answers[p.id]))board(r)});
-s.on('vote',({answerId,decoyId})=>{const r=rooms.get(s.data.room);if(!r||r.phase!=='voting')return;const a=r.board.find(x=>x.id===answerId);if(!a||a.authors.includes(s.data.player))return;r.votes[s.data.player]=answerId;if(decoyId)r.flags[s.data.player]=decoyId;s.emit('notice','Vote locked in.');send(r);if(r.players.every(p=>r.votes[p.id]))reveal(r)});
-s.on('disconnect',()=>{const r=rooms.get(s.data.room);if(r){const p=r.players.find(p=>p.id===s.data.player);if(p){p.connected=false;send(r)}}});
+app.get('/health', (_req, res) => res.json({ ok: true, rooms: rooms.size }));
+
+function token() {
+  return crypto.randomBytes(8).toString('hex');
+}
+function code() {
+  let value;
+  do {
+    value = Array.from({ length: 4 }, () => 'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.random() * 24 | 0]).join('');
+  } while (rooms.has(value));
+  return value;
+}
+function pub(room, who) {
+  const me = room.players.find(player => player.id === who) || null;
+  const showResults = ['reveal', 'final'].includes(room.phase);
+  return {
+    code: room.code,
+    phase: room.phase,
+    round: room.round,
+    players: room.players.map(({ id, name, score, connected }) => ({ id, name, score, connected })),
+    question: room.q ? { category: room.q.category, question: room.q.question } : null,
+    answers: ['voting', 'reveal', 'final'].includes(room.phase)
+      ? room.board.map(answer => ({
+          id: answer.id,
+          text: answer.text,
+          truth: showResults ? answer.truth : undefined,
+          decoy: showResults ? answer.decoy : undefined,
+          authors: showResults ? answer.authors.map(id => room.players.find(p => p.id === id)?.name || 'Player') : undefined,
+          own: answer.authors.includes(who)
+        }))
+      : [],
+    me: me ? { ...me, socket: undefined, answered: Object.hasOwn(room.answers || {}, me.id), voted: Object.hasOwn(room.votes || {}, me.id) } : null,
+    finalScores: room.finalScores || []
+  };
+}
+function send(room) {
+  if (room.host) io.to(room.host).emit('state', pub(room, null));
+  for (const player of room.players) {
+    if (player.socket) io.to(player.socket).emit('state', pub(room, player.id));
+  }
+}
+function timer(room, ms, callback) {
+  clearTimeout(room.timer);
+  room.timer = setTimeout(callback, ms);
+}
+function begin(room) {
+  if (room.round >= 7) {
+    room.phase = 'final';
+    room.finalScores = [...room.players]
+      .sort((a, b) => b.score - a.score)
+      .map((player, index) => ({ name: player.name, score: player.score, rank: index + 1 }));
+    send(room);
+    return;
+  }
+  room.round += 1;
+  room.q = QUESTIONS[(Math.random() * QUESTIONS.length) | 0];
+  room.answers = {};
+  room.votes = {};
+  room.flags = {};
+  room.board = [];
+  room.phase = 'writing';
+  send(room);
+  timer(room, 45000, () => board(room));
+}
+function board(room) {
+  if (room.phase !== 'writing') return;
+  const grouped = new Map();
+  for (const [playerId, text] of Object.entries(room.answers)) {
+    const key = text.trim().toLowerCase();
+    if (!grouped.has(key)) grouped.set(key, { id: token(), text, authors: [], truth: false, decoy: false });
+    grouped.get(key).authors.push(playerId);
+  }
+  room.board = [
+    ...grouped.values(),
+    { id: token(), text: room.q.answer, authors: [], truth: true, decoy: false },
+    { id: token(), text: room.q.decoy, authors: [], truth: false, decoy: true }
+  ].sort(() => Math.random() - 0.5);
+  room.phase = 'voting';
+  send(room);
+  timer(room, 30000, () => reveal(room));
+}
+function reveal(room) {
+  if (room.phase !== 'voting') return;
+  for (const [playerId, answerId] of Object.entries(room.votes)) {
+    const answer = room.board.find(item => item.id === answerId);
+    const player = room.players.find(item => item.id === playerId);
+    if (!answer || !player) continue;
+    if (answer.truth) player.score += room.round === 7 ? 2000 : 1000;
+    if (!answer.truth && !answer.decoy && !answer.authors.includes(playerId)) {
+      for (const authorId of answer.authors) {
+        const author = room.players.find(item => item.id === authorId);
+        if (author) author.score += room.round === 7 ? 1000 : 500;
+      }
+    }
+  }
+  for (const [playerId, answerId] of Object.entries(room.flags)) {
+    if (room.board.find(answer => answer.id === answerId)?.decoy) {
+      const player = room.players.find(item => item.id === playerId);
+      if (player) player.score += room.round === 7 ? 500 : 250;
+    }
+  }
+  room.phase = 'reveal';
+  send(room);
+  timer(room, 7000, () => begin(room));
+}
+
+io.on('connection', socket => {
+  socket.on('createRoom', () => {
+    const roomCode = code();
+    const room = { code: roomCode, host: socket.id, players: [], phase: 'lobby', round: 0 };
+    rooms.set(roomCode, room);
+    socket.data.host = roomCode;
+    socket.emit('created', roomCode);
+    send(room);
+  });
+
+  socket.on('joinRoom', ({ code: roomCode, name } = {}) => {
+    const room = rooms.get(String(roomCode || '').toUpperCase());
+    const cleanName = String(name || '').trim().slice(0, 18);
+    if (!room) return socket.emit('errorMessage', 'Room code not found.');
+    if (room.phase !== 'lobby') return socket.emit('errorMessage', 'That game has already started.');
+    if (!cleanName) return socket.emit('errorMessage', 'Enter your name.');
+    if (room.players.length >= 8) return socket.emit('errorMessage', 'Room is full.');
+    if (room.players.some(player => player.name.toLowerCase() === cleanName.toLowerCase())) {
+      return socket.emit('errorMessage', 'That name is already taken.');
+    }
+    const player = { id: token(), name: cleanName, score: 0, socket: socket.id, connected: true };
+    room.players.push(player);
+    socket.data.room = room.code;
+    socket.data.player = player.id;
+    socket.emit('joined', player.id);
+    send(room);
+  });
+
+  socket.on('startGame', () => {
+    const room = rooms.get(socket.data.host);
+    if (room && room.host === socket.id && room.phase === 'lobby' && room.players.length >= 3) begin(room);
+  });
+
+  socket.on('submitAnswer', value => {
+    const room = rooms.get(socket.data.room);
+    const playerId = socket.data.player;
+    if (!room || room.phase !== 'writing' || !room.players.some(player => player.id === playerId)) return;
+    if (Object.hasOwn(room.answers, playerId)) return socket.emit('errorMessage', 'Your fake is already locked in.');
+    const answer = String(value || '').trim().slice(0, 55);
+    if (!answer) return socket.emit('errorMessage', 'Enter a fake answer first.');
+    if (answer.toLowerCase() === room.q.answer.toLowerCase()) {
+      return socket.emit('errorMessage', 'That is the truth! Make up a fake.');
+    }
+    room.answers[playerId] = answer;
+    socket.emit('notice', 'Fake locked in. Waiting for everyone…');
+    send(room);
+    if (room.players.every(player => Object.hasOwn(room.answers, player.id))) board(room);
+  });
+
+  socket.on('vote', ({ answerId, decoyId } = {}) => {
+    const room = rooms.get(socket.data.room);
+    const playerId = socket.data.player;
+    if (!room || room.phase !== 'voting') return;
+    if (Object.hasOwn(room.votes, playerId)) return socket.emit('errorMessage', 'Your vote is already locked in.');
+    const answer = room.board.find(item => item.id === answerId);
+    if (!answer || answer.authors.includes(playerId)) return socket.emit('errorMessage', 'Choose an answer that is not your own fake.');
+    room.votes[playerId] = answerId;
+    if (decoyId && decoyId !== answerId && room.board.some(item => item.id === decoyId)) {
+      room.flags[playerId] = decoyId;
+    }
+    socket.emit('notice', 'Vote locked in. Waiting for everyone…');
+    send(room);
+    if (room.players.every(player => Object.hasOwn(room.votes, player.id))) reveal(room);
+  });
+
+  socket.on('disconnect', () => {
+    const room = rooms.get(socket.data.room);
+    if (room) {
+      const player = room.players.find(item => item.id === socket.data.player);
+      if (player) {
+        player.connected = false;
+        send(room);
+      }
+    }
+  });
 });
-server.listen(PORT,()=>console.log('SUS listening on '+PORT));
+
+server.listen(PORT, () => console.log('SUS listening on ' + PORT));
