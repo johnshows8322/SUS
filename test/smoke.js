@@ -61,7 +61,7 @@ async function waitForServer() {
   throw new Error('Server did not become healthy: ' + logs);
 }
 async function main() {
-  assert.ok(questions.length >= 10, 'question bank should contain at least 10 questions');
+  assert.ok(questions.length >= 100, 'question bank should contain at least 100 questions');
   for (const question of questions) {
     assert.ok(question.question && question.answer && question.decoy, 'question needs question, truth, and decoy');
     assert.notEqual(question.answer.toLowerCase(), question.decoy.toLowerCase(), 'truth and decoy must differ');
@@ -96,6 +96,10 @@ async function main() {
     players[i].emit('submitAnswer', 'Invented answer number ' + (i + 1));
   }
   const boards = await Promise.all(votingStates);
+  for (const state of boards) {
+    assert.equal(state.question.question, question.question, 'question prompt must remain visible during voting');
+    assert.equal(state.question.category, question.category, 'question category must remain visible during voting');
+  }
   const truthId = boards[0].answers.find(answer => answer.text === question.answer)?.id;
   const decoyId = boards[0].answers.find(answer => answer.text === question.decoy)?.id;
   assert.ok(truthId, 'truth answer should appear on the board');
