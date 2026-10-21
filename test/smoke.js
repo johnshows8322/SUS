@@ -1,0 +1,1 @@
+const assert=require('node:assert/strict');const q=require('../questions.json');assert.ok(q.length>=10,'question bank should contain at least 10 questions');for(const x of q){assert.ok(x.question&&x.answer&&x.decoy&&x.answer!==x.decoy,'each question needs a distinct truth and decoy')}console.log(JSON.stringify({ok:true,questions:q.length,rounds:7,minimumPlayers:3}));
