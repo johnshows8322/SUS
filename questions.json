@@ -1,0 +1,115 @@
+[
+  {
+    "category": "Animals",
+    "question": "Which animal has three hearts?",
+    "answer": "Octopus",
+    "decoy": "Starfish",
+    "acceptable": [
+      "an octopus",
+      "the octopus"
+    ]
+  },
+  {
+    "category": "Space",
+    "question": "Which planet rains diamonds according to scientific models?",
+    "answer": "Neptune",
+    "decoy": "Mars",
+    "acceptable": [
+      "Neptune"
+    ]
+  },
+  {
+    "category": "Food",
+    "question": "Which fruit is botanically a berry?",
+    "answer": "Banana",
+    "decoy": "Strawberry",
+    "acceptable": [
+      "A banana"
+    ]
+  },
+  {
+    "category": "Nature",
+    "question": "What is the only mammal capable of true sustained flight?",
+    "answer": "Bat",
+    "decoy": "Flying squirrel",
+    "acceptable": [
+      "A bat"
+    ]
+  },
+  {
+    "category": "History",
+    "question": "Which ancient civilization used salt as a form of payment?",
+    "answer": "Romans",
+    "decoy": "Vikings",
+    "acceptable": [
+      "The Romans",
+      "Roman"
+    ]
+  },
+  {
+    "category": "Science",
+    "question": "What metal is liquid at room temperature?",
+    "answer": "Mercury",
+    "decoy": "Gallium",
+    "acceptable": [
+      "Quicksilver"
+    ]
+  },
+  {
+    "category": "Animals",
+    "question": "What color is a polar bear's skin under its fur?",
+    "answer": "Black",
+    "decoy": "Pink",
+    "acceptable": [
+      "Black"
+    ]
+  },
+  {
+    "category": "Human Body",
+    "question": "What is the smallest bone in the human body?",
+    "answer": "Stapes",
+    "decoy": "Patella",
+    "acceptable": [
+      "Stirrup"
+    ]
+  },
+  {
+    "category": "Geography",
+    "question": "Which country has a unicorn as its national animal?",
+    "answer": "Scotland",
+    "decoy": "Ireland",
+    "acceptable": [
+      "Scotland"
+    ]
+  },
+  {
+    "category": "Odd Facts",
+    "question": "What do wombats produce that is cube-shaped?",
+    "answer": "Poop",
+    "decoy": "Eggs",
+    "acceptable": [
+      "Feces",
+      "Dung",
+      "Wombat poop"
+    ]
+  },
+  {
+    "category": "Science",
+    "question": "Which planet rotates on its side?",
+    "answer": "Uranus",
+    "decoy": "Saturn",
+    "acceptable": [
+      "Uranus"
+    ]
+  },
+  {
+    "category": "Nature",
+    "question": "What is a group of flamingos called?",
+    "answer": "A flamboyance",
+    "decoy": "A shimmer",
+    "acceptable": [
+      "Flamboyance",
+      "Flamboyance of flamingos"
+    ]
+  }
+]
