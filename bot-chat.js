@@ -88,7 +88,7 @@ const addHeuristic=(id,yes,score)=>{if(yes&&!scores.some(x=>x.id===id))scores.pu
 addHeuristic('bragging',/\b(won|winning|win|cooking|got the w)\b/.test(t),4.3);
 addHeuristic('accusation_sus',/\b(sus|suspicious|shady|sketchy|threw|thrown|carried|throwing)\b/.test(t),targetBot(raw,r)?12:4.2);
 addHeuristic('accusation_decoy',/\b(decoy|fake|bait|lying|lied|spoiler)\b/.test(t),4.4);
-addHeuristic('score_check',/\b(score|points|leaderboard|standings|rank)\b/.test(t),4.5);addHeuristic('score_check',/\b(am i|are we|do i|how am i)\b.{0,24}\b(winning|losing|ahead|behind|doing|scoring|ranked)\b/.test(t),12);
+addHeuristic('score_check',/\b(score|points|leaderboard|standings|rank)\b/.test(t),/\bdecoy\b/.test(t)?4.5:12);addHeuristic('score_check',/\b(am i|are we|do i|how am i)\b.{0,24}\b(winning|losing|ahead|behind|doing|scoring|ranked)\b/.test(t),12);
 addHeuristic('answer_fishing',/\b(answer|truth|correct one|hint|spill)\b/.test(t)&&/\b(tell|which|what|give|real|true|hint|spill)\b/.test(t),4.6);
 scores.sort((a,b)=>b.score-a.score||Number(b.core)-Number(a.core));const primary=scores.find(x=>!x.concept)?.id||(isEmojiOnly?'emoji_only':raw.includes('?')?'direct_question':'unknown');const secondary=scores.filter(x=>!x.concept&&x.id!==primary&&x.score>=Math.max(3,scores[0]?.score*.48)).slice(0,2).map(x=>x.id);const addressed=targetBot(raw,r);const question=/\?/.test(raw)||/^(who|what|why|when|where|how|can|could|would|is|are|do|did|does|will)\b/.test(t);return {primary,secondary,addressed,question,raw,concepts:scores.filter(x=>x.concept).map(x=>x.id.slice(8)),scores}}
 function clipText(s,max){s=String(s||'');if(s.length<=max)return s;let cut=s.slice(0,max-1),last=cut.lastIndexOf(' ');if(last>max*.65)cut=cut.slice(0,last);return cut.replace(/[ ,;:—-]+$/,'')+'…'}
