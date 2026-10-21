@@ -71,12 +71,14 @@ function renderPlayer(s) {
   }
   if (s.phase === 'writing') {
     body += '<p class="muted">' + esc(s.question.category) + ' · Round ' + s.round + ' of 7</p>' +
-      '<div class="question">' + esc(s.question.question) + '</div>' +
+      '<section class="question-card"><div class="question-label">YOUR TRIVIA QUESTION</div><div class="question">' + esc(s.question.question) + '</div></section>' +
       (s.me.answered ? '<div class="item">✅ Your fake is locked in. Waiting for everyone…</div>' :
         '<form id="answer"><input id="fake" maxlength="55" placeholder="Invent a believable fake answer" required><button>Submit fake</button></form>');
   }
   if (s.phase === 'voting') {
-    body += '<p>Pick the real answer. Optionally flag one different answer as the Decoy.</p><div class="answers">' +
+    body += '<p class="muted">' + esc(s.question.category) + ' · Round ' + s.round + ' of 7</p>' +
+      '<section class="question-card"><div class="question-label">SAME QUESTION — CHOOSE THE TRUE ANSWER</div><div class="question">' + esc(s.question.question) + '</div></section>' +
+      '<p>Pick the real answer. Optionally flag one different answer as the Decoy.</p><div class="answers">' +
       s.answers.map(a => '<button data-vote="' + esc(a.id) + '" ' +
         ((a.own || s.me.voted) ? 'disabled' : '') + '>' + esc(a.text) +
         (a.own ? ' (your answer)' : '') + '</button>').join('') + '</div>' +
