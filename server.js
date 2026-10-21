@@ -56,6 +56,15 @@ function timer(room, ms, callback) {
   clearTimeout(room.timer);
   room.timer = setTimeout(callback, ms);
 }
+function nextQuestion(room) {
+  if (!room.usedQuestions) room.usedQuestions = new Set();
+  if (room.usedQuestions.size >= QUESTIONS.length) room.usedQuestions.clear();
+  const available = QUESTIONS.map((question, index) => ({ question, index }))
+    .filter(item => !room.usedQuestions.has(item.index));
+  const picked = available[(Math.random() * available.length) | 0];
+  room.usedQuestions.add(picked.index);
+  return picked.question;
+}
 function begin(room) {
   if (room.round >= 7) {
     room.phase = 'final';
@@ -66,7 +75,7 @@ function begin(room) {
     return;
   }
   room.round += 1;
-  room.q = QUESTIONS[(Math.random() * QUESTIONS.length) | 0];
+  room.q = nextQuestion(room);
   room.answers = {};
   room.votes = {};
   room.flags = {};
