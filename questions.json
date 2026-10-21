@@ -111,5 +111,773 @@
       "Flamboyance",
       "Flamboyance of flamingos"
     ]
+  },
+  {
+    "category": "Animals",
+    "question": "What is the only mammal capable of powered flight?",
+    "answer": "Bat",
+    "decoy": "Flying squirrel"
+  },
+  {
+    "category": "Animals",
+    "question": "How many arms does an octopus have?",
+    "answer": "Eight",
+    "decoy": "Six"
+  },
+  {
+    "category": "Animals",
+    "question": "What is a baby goat called?",
+    "answer": "Kid",
+    "decoy": "Calf"
+  },
+  {
+    "category": "Animals",
+    "question": "Which bird can fly backward?",
+    "answer": "Hummingbird",
+    "decoy": "Albatross"
+  },
+  {
+    "category": "Animals",
+    "question": "What is the fastest land animal?",
+    "answer": "Cheetah",
+    "decoy": "Lion"
+  },
+  {
+    "category": "Animals",
+    "question": "Which mammal lays eggs and has a duck-like bill?",
+    "answer": "Platypus",
+    "decoy": "Beaver"
+  },
+  {
+    "category": "Animals",
+    "question": "What is a group of crows commonly called?",
+    "answer": "A murder",
+    "decoy": "A parliament"
+  },
+  {
+    "category": "Animals",
+    "question": "Which animal is famous for changing color using specialized skin cells?",
+    "answer": "Chameleon",
+    "decoy": "Iguana"
+  },
+  {
+    "category": "Animals",
+    "question": "What is the largest living species of turtle?",
+    "answer": "Leatherback sea turtle",
+    "decoy": "Green sea turtle"
+  },
+  {
+    "category": "Animals",
+    "question": "Which animal has fingerprints that can resemble human fingerprints?",
+    "answer": "Koala",
+    "decoy": "Panda"
+  },
+  {
+    "category": "Animals",
+    "question": "What is the tallest living land animal?",
+    "answer": "Giraffe",
+    "decoy": "Ostrich"
+  },
+  {
+    "category": "Animals",
+    "question": "Which sea creature has blue blood due to copper-based hemocyanin?",
+    "answer": "Horseshoe crab",
+    "decoy": "Dolphin"
+  },
+  {
+    "category": "Animals",
+    "question": "What do pandas mainly eat in the wild?",
+    "answer": "Bamboo",
+    "decoy": "Eucalyptus"
+  },
+  {
+    "category": "Animals",
+    "question": "What is a group of lions called?",
+    "answer": "A pride",
+    "decoy": "A herd"
+  },
+  {
+    "category": "Animals",
+    "question": "Which insect produces honey?",
+    "answer": "Honey bee",
+    "decoy": "Dragonfly"
+  },
+  {
+    "category": "Animals",
+    "question": "Which animal is known for having a pouch to carry its young?",
+    "answer": "Kangaroo",
+    "decoy": "Zebra"
+  },
+  {
+    "category": "Animals",
+    "question": "What is the largest animal known to have ever lived?",
+    "answer": "Blue whale",
+    "decoy": "African elephant"
+  },
+  {
+    "category": "Animals",
+    "question": "Which animal is famous for building dams?",
+    "answer": "Beaver",
+    "decoy": "Otter"
+  },
+  {
+    "category": "Animals",
+    "question": "What do caterpillars turn into after metamorphosis, in the case of butterflies?",
+    "answer": "Butterflies",
+    "decoy": "Dragonflies"
+  },
+  {
+    "category": "Animals",
+    "question": "Which amphibian can regenerate lost limbs?",
+    "answer": "Axolotl",
+    "decoy": "Toad"
+  },
+  {
+    "category": "Space",
+    "question": "Which planet is closest to the Sun?",
+    "answer": "Mercury",
+    "decoy": "Venus"
+  },
+  {
+    "category": "Space",
+    "question": "Which planet has the most prominent ring system?",
+    "answer": "Saturn",
+    "decoy": "Jupiter"
+  },
+  {
+    "category": "Space",
+    "question": "What is the name of our galaxy?",
+    "answer": "The Milky Way",
+    "decoy": "Andromeda"
+  },
+  {
+    "category": "Space",
+    "question": "What force keeps planets in orbit around the Sun?",
+    "answer": "Gravity",
+    "decoy": "Magnetism"
+  },
+  {
+    "category": "Space",
+    "question": "Which planet is known as the Red Planet?",
+    "answer": "Mars",
+    "decoy": "Mercury"
+  },
+  {
+    "category": "Space",
+    "question": "What is the largest planet in our solar system?",
+    "answer": "Jupiter",
+    "decoy": "Saturn"
+  },
+  {
+    "category": "Space",
+    "question": "What is the name of the star at the center of our solar system?",
+    "answer": "The Sun",
+    "decoy": "Sirius"
+  },
+  {
+    "category": "Space",
+    "question": "What is Earth's natural satellite?",
+    "answer": "The Moon",
+    "decoy": "Phobos"
+  },
+  {
+    "category": "Space",
+    "question": "Which planet has a day longer than its year?",
+    "answer": "Venus",
+    "decoy": "Mars"
+  },
+  {
+    "category": "Space",
+    "question": "What do we call a rock from space that reaches Earth's surface?",
+    "answer": "Meteorite",
+    "decoy": "Comet"
+  },
+  {
+    "category": "Space",
+    "question": "Which planet is famous for its Great Red Spot?",
+    "answer": "Jupiter",
+    "decoy": "Neptune"
+  },
+  {
+    "category": "Space",
+    "question": "What is the closest star to Earth after the Sun?",
+    "answer": "Proxima Centauri",
+    "decoy": "Sirius"
+  },
+  {
+    "category": "Space",
+    "question": "What is the boundary around a black hole beyond which light cannot escape called?",
+    "answer": "Event horizon",
+    "decoy": "Asteroid belt"
+  },
+  {
+    "category": "Space",
+    "question": "What type of galaxy is the Milky Way?",
+    "answer": "Barred spiral galaxy",
+    "decoy": "Elliptical galaxy"
+  },
+  {
+    "category": "Science",
+    "question": "What gas do plants absorb from the atmosphere during photosynthesis?",
+    "answer": "Carbon dioxide",
+    "decoy": "Oxygen"
+  },
+  {
+    "category": "Science",
+    "question": "What is the chemical symbol for gold?",
+    "answer": "Au",
+    "decoy": "Ag"
+  },
+  {
+    "category": "Science",
+    "question": "How many chambers does a human heart have?",
+    "answer": "Four",
+    "decoy": "Three"
+  },
+  {
+    "category": "Science",
+    "question": "What is the hardest naturally occurring mineral on the Mohs scale?",
+    "answer": "Diamond",
+    "decoy": "Quartz"
+  },
+  {
+    "category": "Science",
+    "question": "What is the approximate speed of light in a vacuum?",
+    "answer": "300,000 kilometers per second",
+    "decoy": "30,000 kilometers per second"
+  },
+  {
+    "category": "Science",
+    "question": "What is the center of an atom called?",
+    "answer": "Nucleus",
+    "decoy": "Electron cloud"
+  },
+  {
+    "category": "Science",
+    "question": "Which subatomic particle has a negative electric charge?",
+    "answer": "Electron",
+    "decoy": "Proton"
+  },
+  {
+    "category": "Science",
+    "question": "What is the chemical formula for water?",
+    "answer": "H₂O",
+    "decoy": "CO₂"
+  },
+  {
+    "category": "Science",
+    "question": "At what temperature does water freeze on the Celsius scale at standard pressure?",
+    "answer": "0°C",
+    "decoy": "10°C"
+  },
+  {
+    "category": "Science",
+    "question": "What is the pH of a neutral solution at 25°C?",
+    "answer": "7",
+    "decoy": "5"
+  },
+  {
+    "category": "Science",
+    "question": "Which gas makes up most of Earth's atmosphere?",
+    "answer": "Nitrogen",
+    "decoy": "Oxygen"
+  },
+  {
+    "category": "Science",
+    "question": "What is the process by which liquid changes into gas called?",
+    "answer": "Evaporation",
+    "decoy": "Condensation"
+  },
+  {
+    "category": "Science",
+    "question": "What is the study of fungi called?",
+    "answer": "Mycology",
+    "decoy": "Ecology"
+  },
+  {
+    "category": "Science",
+    "question": "Which scale is commonly used to measure mineral hardness?",
+    "answer": "Mohs scale",
+    "decoy": "Richter scale"
+  },
+  {
+    "category": "Science",
+    "question": "What is the most abundant element in the universe?",
+    "answer": "Hydrogen",
+    "decoy": "Oxygen"
+  },
+  {
+    "category": "Science",
+    "question": "What is the main gas in a typical helium party balloon?",
+    "answer": "Helium",
+    "decoy": "Hydrogen"
+  },
+  {
+    "category": "Science",
+    "question": "What kind of energy is stored in a stretched spring?",
+    "answer": "Potential energy",
+    "decoy": "Sound energy"
+  },
+  {
+    "category": "Science",
+    "question": "Which metal is strongly attracted to a magnet in everyday examples?",
+    "answer": "Iron",
+    "decoy": "Copper"
+  },
+  {
+    "category": "Science",
+    "question": "What is the boiling point of water in Celsius at sea level?",
+    "answer": "100°C",
+    "decoy": "80°C"
+  },
+  {
+    "category": "Science",
+    "question": "What is the name for animals that are active mainly at night?",
+    "answer": "Nocturnal",
+    "decoy": "Diurnal"
+  },
+  {
+    "category": "Science",
+    "question": "Which vitamin can the human body produce in skin with sunlight exposure?",
+    "answer": "Vitamin D",
+    "decoy": "Vitamin C"
+  },
+  {
+    "category": "Science",
+    "question": "What is the approximate number of bones in an adult human?",
+    "answer": "206",
+    "decoy": "306"
+  },
+  {
+    "category": "Science",
+    "question": "Which organ filters blood to make urine?",
+    "answer": "Kidneys",
+    "decoy": "Lungs"
+  },
+  {
+    "category": "Science",
+    "question": "What is the largest organ of the human body?",
+    "answer": "Skin",
+    "decoy": "Liver"
+  },
+  {
+    "category": "Science",
+    "question": "Which blood cells help fight infections?",
+    "answer": "White blood cells",
+    "decoy": "Red blood cells"
+  },
+  {
+    "category": "Science",
+    "question": "What is the name of the pigment that gives skin much of its color?",
+    "answer": "Melanin",
+    "decoy": "Keratin"
+  },
+  {
+    "category": "Food",
+    "question": "Which spice comes from the dried stigmas of a crocus flower?",
+    "answer": "Saffron",
+    "decoy": "Paprika"
+  },
+  {
+    "category": "Food",
+    "question": "What is the main ingredient in traditional hummus?",
+    "answer": "Chickpeas",
+    "decoy": "Lentils"
+  },
+  {
+    "category": "Food",
+    "question": "Which nut is used to make marzipan?",
+    "answer": "Almond",
+    "decoy": "Cashew"
+  },
+  {
+    "category": "Food",
+    "question": "What is tofu traditionally made from?",
+    "answer": "Soybeans",
+    "decoy": "Chickpeas"
+  },
+  {
+    "category": "Food",
+    "question": "Which fruit is dried to make prunes?",
+    "answer": "Plums",
+    "decoy": "Apricots"
+  },
+  {
+    "category": "Food",
+    "question": "What type of pastry is used for a classic croissant?",
+    "answer": "Laminated yeast dough",
+    "decoy": "Shortcrust pastry"
+  },
+  {
+    "category": "Food",
+    "question": "Which country is most associated with the origin of sushi as we know it today?",
+    "answer": "Japan",
+    "decoy": "Mexico"
+  },
+  {
+    "category": "Food",
+    "question": "What is the main ingredient in guacamole?",
+    "answer": "Avocado",
+    "decoy": "Cucumber"
+  },
+  {
+    "category": "Food",
+    "question": "Which cheese is traditionally used in a Greek salad?",
+    "answer": "Feta",
+    "decoy": "Brie"
+  },
+  {
+    "category": "Food",
+    "question": "What gives chili peppers their heat?",
+    "answer": "Capsaicin",
+    "decoy": "Caffeine"
+  },
+  {
+    "category": "Food",
+    "question": "Which grain is traditionally used to make risotto?",
+    "answer": "Rice",
+    "decoy": "Barley"
+  },
+  {
+    "category": "Food",
+    "question": "What is the primary ingredient in miso?",
+    "answer": "Fermented soybeans",
+    "decoy": "Fermented potatoes"
+  },
+  {
+    "category": "Food",
+    "question": "Which fruit is known for having its seeds on the outside of the flesh?",
+    "answer": "Strawberry",
+    "decoy": "Raspberry"
+  },
+  {
+    "category": "Food",
+    "question": "What is the main ingredient in falafel?",
+    "answer": "Chickpeas or fava beans",
+    "decoy": "Potatoes"
+  },
+  {
+    "category": "Food",
+    "question": "Which drink is traditionally made by steeping tea leaves in water?",
+    "answer": "Tea",
+    "decoy": "Coffee"
+  },
+  {
+    "category": "Geography",
+    "question": "What is the largest ocean on Earth?",
+    "answer": "Pacific Ocean",
+    "decoy": "Atlantic Ocean"
+  },
+  {
+    "category": "Geography",
+    "question": "What is the capital city of Australia?",
+    "answer": "Canberra",
+    "decoy": "Sydney"
+  },
+  {
+    "category": "Geography",
+    "question": "Which river flows through Egypt and into the Mediterranean Sea?",
+    "answer": "Nile",
+    "decoy": "Amazon"
+  },
+  {
+    "category": "Geography",
+    "question": "What is the smallest independent country by area?",
+    "answer": "Vatican City",
+    "decoy": "Monaco"
+  },
+  {
+    "category": "Geography",
+    "question": "Which continent contains the Sahara Desert?",
+    "answer": "Africa",
+    "decoy": "Asia"
+  },
+  {
+    "category": "Geography",
+    "question": "What is the capital of Canada?",
+    "answer": "Ottawa",
+    "decoy": "Toronto"
+  },
+  {
+    "category": "Geography",
+    "question": "Which country is home to the ancient city of Petra?",
+    "answer": "Jordan",
+    "decoy": "Egypt"
+  },
+  {
+    "category": "Geography",
+    "question": "Mount Everest lies in which mountain range?",
+    "answer": "Himalayas",
+    "decoy": "Andes"
+  },
+  {
+    "category": "Geography",
+    "question": "Which U.S. state is nicknamed the Aloha State?",
+    "answer": "Hawaii",
+    "decoy": "Florida"
+  },
+  {
+    "category": "Geography",
+    "question": "What is the world's largest hot desert?",
+    "answer": "Sahara",
+    "decoy": "Gobi"
+  },
+  {
+    "category": "Geography",
+    "question": "Which country has the city of Kyoto?",
+    "answer": "Japan",
+    "decoy": "China"
+  },
+  {
+    "category": "Geography",
+    "question": "What is the capital of New Zealand?",
+    "answer": "Wellington",
+    "decoy": "Auckland"
+  },
+  {
+    "category": "Geography",
+    "question": "Which European country is shaped like a boot?",
+    "answer": "Italy",
+    "decoy": "Greece"
+  },
+  {
+    "category": "Geography",
+    "question": "Which country is home to the Great Barrier Reef?",
+    "answer": "Australia",
+    "decoy": "South Africa"
+  },
+  {
+    "category": "Geography",
+    "question": "What is the largest country in the world by land area?",
+    "answer": "Russia",
+    "decoy": "Canada"
+  },
+  {
+    "category": "History",
+    "question": "Which ancient civilization built the pyramids at Giza?",
+    "answer": "Ancient Egyptians",
+    "decoy": "Ancient Greeks"
+  },
+  {
+    "category": "History",
+    "question": "In which country did the Renaissance begin?",
+    "answer": "Italy",
+    "decoy": "France"
+  },
+  {
+    "category": "History",
+    "question": "Which wall fell in 1989, symbolizing the end of the Cold War era in Europe?",
+    "answer": "Berlin Wall",
+    "decoy": "Great Wall of China"
+  },
+  {
+    "category": "History",
+    "question": "Who was the first person to walk on the Moon?",
+    "answer": "Neil Armstrong",
+    "decoy": "Buzz Aldrin"
+  },
+  {
+    "category": "History",
+    "question": "Which ship famously sank on its maiden voyage in 1912?",
+    "answer": "Titanic",
+    "decoy": "Lusitania"
+  },
+  {
+    "category": "History",
+    "question": "What writing material made from a plant was used in ancient Egypt?",
+    "answer": "Papyrus",
+    "decoy": "Parchment"
+  },
+  {
+    "category": "History",
+    "question": "Which city was buried by the eruption of Mount Vesuvius in AD 79?",
+    "answer": "Pompeii",
+    "decoy": "Athens"
+  },
+  {
+    "category": "History",
+    "question": "What was the name of the trade route network linking East Asia with the Mediterranean?",
+    "answer": "Silk Road",
+    "decoy": "Spice Circle"
+  },
+  {
+    "category": "History",
+    "question": "Which invention is Johannes Gutenberg famous for helping popularize in Europe?",
+    "answer": "Movable-type printing press",
+    "decoy": "Steam engine"
+  },
+  {
+    "category": "History",
+    "question": "What ancient Roman structure was used for gladiatorial contests?",
+    "answer": "Colosseum",
+    "decoy": "Parthenon"
+  },
+  {
+    "category": "Language & Culture",
+    "question": "What is the Japanese art of paper folding called?",
+    "answer": "Origami",
+    "decoy": "Ikebana"
+  },
+  {
+    "category": "Language & Culture",
+    "question": "How many letters are in the English alphabet?",
+    "answer": "26",
+    "decoy": "24"
+  },
+  {
+    "category": "Language & Culture",
+    "question": "What is the official language of Brazil?",
+    "answer": "Portuguese",
+    "decoy": "Spanish"
+  },
+  {
+    "category": "Language & Culture",
+    "question": "What is a word that reads the same forward and backward called?",
+    "answer": "Palindrome",
+    "decoy": "Anagram"
+  },
+  {
+    "category": "Language & Culture",
+    "question": "Which instrument typically has 88 keys on a standard modern version?",
+    "answer": "Piano",
+    "decoy": "Accordion"
+  },
+  {
+    "category": "Language & Culture",
+    "question": "What is the traditional Korean garment called?",
+    "answer": "Hanbok",
+    "decoy": "Kimono"
+  },
+  {
+    "category": "Language & Culture",
+    "question": "Which board game features properties such as Boardwalk and Park Place?",
+    "answer": "Monopoly",
+    "decoy": "Clue"
+  },
+  {
+    "category": "Language & Culture",
+    "question": "What is the name of the wizarding school in the Harry Potter series?",
+    "answer": "Hogwarts",
+    "decoy": "Narnia Academy"
+  },
+  {
+    "category": "Nature",
+    "question": "What is the largest type of tree by volume commonly cited?",
+    "answer": "Giant sequoia",
+    "decoy": "Coast redwood"
+  },
+  {
+    "category": "Nature",
+    "question": "What is the process called when a seed begins to grow?",
+    "answer": "Germination",
+    "decoy": "Pollination"
+  },
+  {
+    "category": "Nature",
+    "question": "Which part of a plant usually absorbs water from the soil?",
+    "answer": "Roots",
+    "decoy": "Petals"
+  },
+  {
+    "category": "Nature",
+    "question": "What is molten rock beneath Earth's surface called?",
+    "answer": "Magma",
+    "decoy": "Lava"
+  },
+  {
+    "category": "Nature",
+    "question": "What is molten rock called after it reaches Earth's surface?",
+    "answer": "Lava",
+    "decoy": "Magma"
+  },
+  {
+    "category": "Nature",
+    "question": "What is the name for a scientist who studies weather?",
+    "answer": "Meteorologist",
+    "decoy": "Geologist"
+  },
+  {
+    "category": "Nature",
+    "question": "What is the seasonal movement of animals from one region to another called?",
+    "answer": "Migration",
+    "decoy": "Hibernation"
+  },
+  {
+    "category": "Nature",
+    "question": "Which natural event is measured using the moment magnitude scale?",
+    "answer": "Earthquake",
+    "decoy": "Hurricane"
+  },
+  {
+    "category": "Nature",
+    "question": "What type of cloud is often associated with thunderstorms?",
+    "answer": "Cumulonimbus",
+    "decoy": "Cirrus"
+  },
+  {
+    "category": "Nature",
+    "question": "What do bees transfer between flowers that helps many plants reproduce?",
+    "answer": "Pollen",
+    "decoy": "Sap"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "What is the fear of spiders called?",
+    "answer": "Arachnophobia",
+    "decoy": "Acrophobia"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "What is the dot over a lowercase 'i' or 'j' called?",
+    "answer": "Tittle",
+    "decoy": "Cedilla"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "What is the name for the smell often produced after rain on dry ground?",
+    "answer": "Petrichor",
+    "decoy": "Geosmin"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "Which animal's fingerprints can resemble human ones?",
+    "answer": "Koala",
+    "decoy": "Sloth"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "What is the only letter that does not appear in any U.S. state name?",
+    "answer": "Q",
+    "decoy": "X"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "How many sides does a standard stop sign have?",
+    "answer": "Eight",
+    "decoy": "Six"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "What is the name for a shape with five sides?",
+    "answer": "Pentagon",
+    "decoy": "Hexagon"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "What do you call a group of stars forming a recognizable pattern in the sky?",
+    "answer": "Constellation",
+    "decoy": "Galaxy"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "What is the name for a word formed from initials and pronounced as a word, such as NASA?",
+    "answer": "Acronym",
+    "decoy": "Homonym"
+  },
+  {
+    "category": "Odd Facts",
+    "question": "Which common household item was originally developed as a wallpaper cleaner and later used as a children's toy?",
+    "answer": "Play-Doh",
+    "decoy": "Silly Putty"
   }
 ]
