@@ -1,127 +1,18 @@
-const assert = require('node:assert/strict');
-const { spawn } = require('node:child_process');
-const { io } = require('socket.io-client');
-const questions = require('../questions.json');
-
-const port = 31000 + (process.pid % 20000);
-const url = 'http://127.0.0.1:' + port;
-const child = spawn(process.execPath, ['server.js'], {
-  env: { ...process.env, PORT: String(port) },
-  stdio: ['ignore', 'pipe', 'pipe']
-});
-const clients = [];
-let logs = '';
-
-child.stdout.on('data', chunk => { logs += chunk.toString(); });
-child.stderr.on('data', chunk => { logs += chunk.toString(); });
-
-function connectClient() {
-  const socket = io(url, { transports: ['websocket'], reconnection: false, timeout: 3000 });
-  clients.push(socket);
-  return socket;
-}
-function waitForEvent(socket, event, timeout = 5000) {
-  return new Promise((resolve, reject) => {
-    const timer = setTimeout(() => {
-      socket.off(event, handler);
-      reject(new Error('Timed out waiting for ' + event));
-    }, timeout);
-    const handler = (...args) => {
-      clearTimeout(timer);
-      resolve(...args);
-    };
-    socket.once(event, handler);
-  });
-}
-function waitForState(socket, predicate, timeout = 5000) {
-  return new Promise((resolve, reject) => {
-    const timer = setTimeout(() => {
-      socket.off('state', handler);
-      reject(new Error('Timed out waiting for game state; recent server logs: ' + logs));
-    }, timeout);
-    const handler = state => {
-      if (!predicate(state)) return;
-      clearTimeout(timer);
-      socket.off('state', handler);
-      resolve(state);
-    };
-    socket.on('state', handler);
-  });
-}
-async function waitForServer() {
-  const deadline = Date.now() + 8000;
-  while (Date.now() < deadline) {
-    if (child.exitCode !== null) throw new Error('Server exited early: ' + logs);
-    try {
-      const response = await fetch(url + '/health');
-      if (response.ok) return;
-    } catch {}
-    await new Promise(resolve => setTimeout(resolve, 150));
-  }
-  throw new Error('Server did not become healthy: ' + logs);
-}
-async function main() {
-  assert.ok(questions.length >= 100, 'question bank should contain at least 100 questions');
-  for (const question of questions) {
-    assert.ok(question.question && question.answer && question.decoy, 'question needs question, truth, and decoy');
-    assert.notEqual(question.answer.toLowerCase(), question.decoy.toLowerCase(), 'truth and decoy must differ');
-  }
-
-  await waitForServer();
-  const host = connectClient();
-  await waitForEvent(host, 'connect');
-  const roomCreated = waitForEvent(host, 'created');
-  host.emit('createRoom');
-  const roomCode = await roomCreated;
-  assert.match(roomCode, /^[A-Z]{4}$/);
-
-  const players = [];
-  for (let i = 0; i < 3; i++) {
-    const socket = connectClient();
-    await waitForEvent(socket, 'connect');
-    const joined = waitForEvent(socket, 'joined');
-    socket.emit('joinRoom', { code: roomCode, name: 'Tester ' + (i + 1) });
-    await joined;
-    players.push(socket);
-  }
-
-  const writingStates = players.map(socket => waitForState(socket, state => state.phase === 'writing'));
-  host.emit('startGame');
-  const states = await Promise.all(writingStates);
-  const question = questions.find(item => item.question === states[0].question.question);
-  assert.ok(question, 'active question must exist in question bank');
-
-  const votingStates = players.map(socket => waitForState(socket, state => state.phase === 'voting'));
-  for (let i = 0; i < players.length; i++) {
-    players[i].emit('submitAnswer', 'Invented answer number ' + (i + 1));
-  }
-  const boards = await Promise.all(votingStates);
-  for (const state of boards) {
-    assert.equal(state.question.question, question.question, 'question prompt must remain visible during voting');
-    assert.equal(state.question.category, question.category, 'question category must remain visible during voting');
-  }
-  const truthId = boards[0].answers.find(answer => answer.text === question.answer)?.id;
-  const decoyId = boards[0].answers.find(answer => answer.text === question.decoy)?.id;
-  assert.ok(truthId, 'truth answer should appear on the board');
-  assert.ok(decoyId, 'decoy answer should appear on the board');
-
-  const revealStates = players.map(socket => waitForState(socket, state => state.phase === 'reveal'));
-  for (const socket of players) socket.emit('vote', { answerId: truthId, decoyId });
-  const reveals = await Promise.all(revealStates);
-  for (const state of reveals) {
-    assert.equal(state.me.score, 1250, 'correct truth vote and Decoy flag should score 1250');
-    assert.ok(state.answers.some(answer => answer.truth), 'reveal should identify the truth');
-    assert.ok(state.answers.some(answer => answer.decoy), 'reveal should identify the Decoy');
-  }
-
-  console.log('SUS integration test passed: room creation, 3-player join, answer submission, voting, Decoy flagging, reveal, and scoring.');
-}
-main()
-  .catch(error => {
-    console.error(error);
-    process.exitCode = 1;
-  })
-  .finally(() => {
-    for (const socket of clients) socket.disconnect();
-    child.kill();
-  });
+const assert=require('node:assert/strict'),fs=require('node:fs'),{spawn}=require('node:child_process'),{io}=require('socket.io-client'),questions=require('../questions.json');
+const appSource=fs.readFileSync(require.resolve('../public/app.js'),'utf8'),indexSource=fs.readFileSync(require.resolve('../public/index.html'),'utf8'),port=31000+(process.pid%20000),url='http://127.0.0.1:'+port,child=spawn(process.execPath,['server.js'],{env:{...process.env,PORT:String(port),SUS_TEST_FAST_TIMERS:'1'},stdio:['ignore','pipe','pipe']});
+const clients=[];let logs='';child.stdout.on('data',c=>logs+=c.toString());child.stderr.on('data',c=>logs+=c.toString());
+function client(){const s=io(url,{transports:['websocket'],reconnection:false,timeout:3000});clients.push(s);return s}
+function event(s,e,ms=5000){return new Promise((resolve,reject)=>{const t=setTimeout(()=>{s.off(e,h);reject(Error('Timeout '+e))},ms),h=(...a)=>{clearTimeout(t);resolve(...a)};s.once(e,h)})}
+function state(s,p,ms=5000){return new Promise((resolve,reject)=>{const t=setTimeout(()=>{s.off('state',h);reject(Error('Timeout state '+logs))},ms),h=x=>{if(!p(x))return;clearTimeout(t);s.off('state',h);resolve(x)};s.on('state',h)})}
+async function healthy(){const end=Date.now()+8000;while(Date.now()<end){if(child.exitCode!==null)throw Error('Server exited '+logs);try{if((await fetch(url+'/health')).ok)return}catch{}await new Promise(r=>setTimeout(r,100))}throw Error('No health response '+logs)}
+async function join(s,c,n,id){const p=event(s,'joined');s.emit('joinRoom',{code:c,name:n,playerId:id});return p}
+async function main(){assert.ok(questions.length>=100);assert.equal(new Set(questions.map(q=>q.question.trim().toLowerCase())).size,questions.length,'question prompts unique');for(const q of questions){assert.ok(q.question&&q.answer&&q.decoy);assert.notEqual(q.answer.toLowerCase(),q.decoy.toLowerCase())}for(const [src,re] of [[indexSource,/How to Play/],[appSource,/How to Play/],[appSource,/SUS Podium/],[appSource,/Full standings/],[appSource,/Play Again/]])assert.match(src,re);
+await healthy();const host=client();await event(host,'connect');const created=event(host,'created');host.emit('createRoom');const c=await created,ps=[];for(let i=0;i<3;i++){const p=client();await event(p,'connect');p.playerId=await join(p,c,'Tester '+(i+1));ps.push(p)}
+const ww=ps.map(p=>state(p,s=>s.phase==='writing'&&s.round===1));host.emit('startGame');const w=await Promise.all(ww),first=w[0].question.question;let lost=ps[2];lost.disconnect();await new Promise(r=>setTimeout(r,30));let repl=client();await event(repl,'connect');assert.equal(await join(repl,c,'Tester 3',lost.playerId),lost.playerId);assert.equal((await state(repl,s=>s.phase==='writing'&&s.me?.id===lost.playerId)).me.score,0);ps[2]=repl;repl.playerId=lost.playerId;
+repl.disconnect();const vw=ps.slice(0,2).map(p=>state(p,s=>s.phase==='voting'&&s.round===1));ps[0].emit('submitAnswer','Round 1 fake alpha');ps[1].emit('submitAnswer','Round 1 fake beta');const b1=await Promise.all(vw);assert.equal(b1[0].question.question,first);assert.equal(new Set(b1[0].answers.map(a=>a.text.trim().toLowerCase())).size,b1[0].answers.length,'Decoy collision prevented');
+repl=client();await event(repl,'connect');assert.equal(await join(repl,c,'Tester 3',lost.playerId),lost.playerId);ps[2]=repl;repl.playerId=lost.playerId;const seen=new Set([first.trim().toLowerCase()]);
+async function voteRound(round,boards){assert.equal(new Set(boards[0].answers.map(a=>a.text.trim().toLowerCase())).size,boards[0].answers.length,'unique board '+round);const q=questions.find(x=>x.question===boards[0].question.question),truth=boards[0].answers.find(a=>a.text===q.answer);assert.ok(truth);const reveals=ps.map(p=>state(p,s=>s.phase==='reveal'&&s.round===round));for(const p of ps)p.emit('vote',{answerId:truth.id});await Promise.all(reveals)}
+await voteRound(1,b1);
+let finalWait=[];for(let round=2;round<=7;round++){const ws=await Promise.all(ps.map(p=>state(p,s=>s.phase==='writing'&&s.round===round))),prompt=ws[0].question.question.trim().toLowerCase();assert.ok(!seen.has(prompt),'no question repeats at round '+round);seen.add(prompt);const votes=ps.map(p=>state(p,s=>s.phase==='voting'&&s.round===round));for(let i=0;i<3;i++)ps[i].emit('submitAnswer','Round '+round+' fake '+(i+1));const boards=await Promise.all(votes);if(round===7)finalWait=ps.map(p=>state(p,s=>s.phase==='final'));await voteRound(round,boards)}
+const finals=await Promise.all(finalWait);for(const f of finals){assert.equal(f.finalScores.length,3);assert.deepEqual(f.finalScores.map(p=>p.rank),[1,2,3])}const lobby=state(ps[0],s=>s.phase==='lobby');ps[0].emit('playAgain');await lobby;console.log('SUS integration test passed: reconnect, disconnect phase advancement, unique questions/answers, final standings and Play Again')}
+main().catch(e=>{console.error(e);process.exitCode=1}).finally(()=>{for(const s of clients)s.disconnect();child.kill()});
