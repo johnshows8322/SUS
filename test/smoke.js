@@ -91,11 +91,10 @@ async function main() {
   const question = questions.find(item => item.question === states[0].question.question);
   assert.ok(question, 'active question must exist in question bank');
 
+  const votingStates = players.map(socket => waitForState(socket, state => state.phase === 'voting'));
   for (let i = 0; i < players.length; i++) {
     players[i].emit('submitAnswer', 'Invented answer number ' + (i + 1));
   }
-
-  const votingStates = players.map(socket => waitForState(socket, state => state.phase === 'voting'));
   const boards = await Promise.all(votingStates);
   const truthId = boards[0].answers.find(answer => answer.text === question.answer)?.id;
   const decoyId = boards[0].answers.find(answer => answer.text === question.decoy)?.id;
