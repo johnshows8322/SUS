@@ -30,7 +30,7 @@ function pub(room, who) {
     code: room.code,
     phase: room.phase,
     round: room.round,
-    players: room.players.map(({ id, name, score, connected }) => ({ id, name, score, connected })),
+    players: room.players.map(({ id, name, score, connected }) => ({ id, name, score, connected, answered: Object.hasOwn(room.answers || {}, id), voted: Object.hasOwn(room.votes || {}, id) })),
     question: room.q ? { category: room.q.category, question: room.q.question } : null,
     answers: ['voting', 'reveal', 'final'].includes(room.phase)
       ? room.board.map(answer => ({
