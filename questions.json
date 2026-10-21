@@ -7,6 +7,14 @@
     "acceptable": [
       "an octopus",
       "the octopus"
+    ],
+    "botAnswers": [
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel",
+      "Eight",
+      "Six"
     ]
   },
   {
@@ -16,6 +24,14 @@
     "decoy": "Mars",
     "acceptable": [
       "Neptune"
+    ],
+    "botAnswers": [
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "Jupiter",
+      "The Milky Way",
+      "Andromeda"
     ]
   },
   {
@@ -25,6 +41,14 @@
     "decoy": "Strawberry",
     "acceptable": [
       "A banana"
+    ],
+    "botAnswers": [
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils",
+      "Almond",
+      "Cashew"
     ]
   },
   {
@@ -34,6 +58,14 @@
     "decoy": "Flying squirrel",
     "acceptable": [
       "A bat"
+    ],
+    "botAnswers": [
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood",
+      "Germination",
+      "Pollination"
     ]
   },
   {
@@ -44,6 +76,14 @@
     "acceptable": [
       "The Romans",
       "Roman"
+    ],
+    "botAnswers": [
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Italy",
+      "France",
+      "Berlin Wall",
+      "Great Wall of China"
     ]
   },
   {
@@ -53,6 +93,14 @@
     "decoy": "Gallium",
     "acceptable": [
       "Quicksilver"
+    ],
+    "botAnswers": [
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen",
+      "Au",
+      "Ag"
     ]
   },
   {
@@ -62,6 +110,14 @@
     "decoy": "Pink",
     "acceptable": [
       "Black"
+    ],
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Bat",
+      "Flying squirrel",
+      "Eight",
+      "Six"
     ]
   },
   {
@@ -71,6 +127,14 @@
     "decoy": "Patella",
     "acceptable": [
       "Stirrup"
+    ],
+    "botAnswers": [
+      "Iris",
+      "Retina",
+      "Liver",
+      "Lung",
+      "Alveoli",
+      "Neurons"
     ]
   },
   {
@@ -80,6 +144,14 @@
     "decoy": "Ireland",
     "acceptable": [
       "Scotland"
+    ],
+    "botAnswers": [
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney",
+      "Nile",
+      "Amazon"
     ]
   },
   {
@@ -91,6 +163,14 @@
       "Feces",
       "Dung",
       "Wombat poop"
+    ],
+    "botAnswers": [
+      "Arachnophobia",
+      "Acrophobia",
+      "Tittle",
+      "Cedilla",
+      "Petrichor",
+      "Geosmin"
     ]
   },
   {
@@ -100,6 +180,14 @@
     "decoy": "Saturn",
     "acceptable": [
       "Uranus"
+    ],
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Carbon dioxide",
+      "Oxygen",
+      "Au",
+      "Ag"
     ]
   },
   {
@@ -110,774 +198,1904 @@
     "acceptable": [
       "Flamboyance",
       "Flamboyance of flamingos"
+    ],
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "Giant sequoia",
+      "Coast redwood",
+      "Germination",
+      "Pollination"
     ]
   },
   {
     "category": "Animals",
     "question": "What is the only mammal capable of powered flight?",
     "answer": "Bat",
-    "decoy": "Flying squirrel"
+    "decoy": "Flying squirrel",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Eight",
+      "Six"
+    ]
   },
   {
     "category": "Animals",
     "question": "How many arms does an octopus have?",
     "answer": "Eight",
-    "decoy": "Six"
+    "decoy": "Six",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "What is a baby goat called?",
     "answer": "Kid",
-    "decoy": "Calf"
+    "decoy": "Calf",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "Which bird can fly backward?",
     "answer": "Hummingbird",
-    "decoy": "Albatross"
+    "decoy": "Albatross",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "What is the fastest land animal?",
     "answer": "Cheetah",
-    "decoy": "Lion"
+    "decoy": "Lion",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "Which mammal lays eggs and has a duck-like bill?",
     "answer": "Platypus",
-    "decoy": "Beaver"
+    "decoy": "Beaver",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "What is a group of crows commonly called?",
     "answer": "A murder",
-    "decoy": "A parliament"
+    "decoy": "A parliament",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "Which animal is famous for changing color using specialized skin cells?",
     "answer": "Chameleon",
-    "decoy": "Iguana"
+    "decoy": "Iguana",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "What is the largest living species of turtle?",
     "answer": "Leatherback sea turtle",
-    "decoy": "Green sea turtle"
+    "decoy": "Green sea turtle",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "Which animal has fingerprints that can resemble human fingerprints?",
     "answer": "Koala",
-    "decoy": "Panda"
+    "decoy": "Panda",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "What is the tallest living land animal?",
     "answer": "Giraffe",
-    "decoy": "Ostrich"
+    "decoy": "Ostrich",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "Which sea creature has blue blood due to copper-based hemocyanin?",
     "answer": "Horseshoe crab",
-    "decoy": "Dolphin"
+    "decoy": "Dolphin",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "What do pandas mainly eat in the wild?",
     "answer": "Bamboo",
-    "decoy": "Eucalyptus"
+    "decoy": "Eucalyptus",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "What is a group of lions called?",
     "answer": "A pride",
-    "decoy": "A herd"
+    "decoy": "A herd",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "Which insect produces honey?",
     "answer": "Honey bee",
-    "decoy": "Dragonfly"
+    "decoy": "Dragonfly",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "Which animal is known for having a pouch to carry its young?",
     "answer": "Kangaroo",
-    "decoy": "Zebra"
+    "decoy": "Zebra",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "What is the largest animal known to have ever lived?",
     "answer": "Blue whale",
-    "decoy": "African elephant"
+    "decoy": "African elephant",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "Which animal is famous for building dams?",
     "answer": "Beaver",
-    "decoy": "Otter"
+    "decoy": "Otter",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "What do caterpillars turn into after metamorphosis, in the case of butterflies?",
     "answer": "Butterflies",
-    "decoy": "Dragonflies"
+    "decoy": "Dragonflies",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Animals",
     "question": "Which amphibian can regenerate lost limbs?",
     "answer": "Axolotl",
-    "decoy": "Toad"
+    "decoy": "Toad",
+    "botAnswers": [
+      "Octopus",
+      "Starfish",
+      "Black",
+      "Pink",
+      "Bat",
+      "Flying squirrel"
+    ]
   },
   {
     "category": "Space",
     "question": "Which planet is closest to the Sun?",
     "answer": "Mercury",
-    "decoy": "Venus"
+    "decoy": "Venus",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Saturn",
+      "Jupiter",
+      "The Milky Way",
+      "Andromeda"
+    ]
   },
   {
     "category": "Space",
     "question": "Which planet has the most prominent ring system?",
     "answer": "Saturn",
-    "decoy": "Jupiter"
+    "decoy": "Jupiter",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "The Milky Way",
+      "Andromeda"
+    ]
   },
   {
     "category": "Space",
     "question": "What is the name of our galaxy?",
     "answer": "The Milky Way",
-    "decoy": "Andromeda"
+    "decoy": "Andromeda",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "Jupiter"
+    ]
   },
   {
     "category": "Space",
     "question": "What force keeps planets in orbit around the Sun?",
     "answer": "Gravity",
-    "decoy": "Magnetism"
+    "decoy": "Magnetism",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "Jupiter"
+    ]
   },
   {
     "category": "Space",
     "question": "Which planet is known as the Red Planet?",
     "answer": "Mars",
-    "decoy": "Mercury"
+    "decoy": "Mercury",
+    "botAnswers": [
+      "Neptune",
+      "Venus",
+      "Saturn",
+      "Jupiter",
+      "The Milky Way",
+      "Andromeda"
+    ]
   },
   {
     "category": "Space",
     "question": "What is the largest planet in our solar system?",
     "answer": "Jupiter",
-    "decoy": "Saturn"
+    "decoy": "Saturn",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "The Milky Way",
+      "Andromeda"
+    ]
   },
   {
     "category": "Space",
     "question": "What is the name of the star at the center of our solar system?",
     "answer": "The Sun",
-    "decoy": "Sirius"
+    "decoy": "Sirius",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "Jupiter"
+    ]
   },
   {
     "category": "Space",
     "question": "What is Earth's natural satellite?",
     "answer": "The Moon",
-    "decoy": "Phobos"
+    "decoy": "Phobos",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "Jupiter"
+    ]
   },
   {
     "category": "Space",
     "question": "Which planet has a day longer than its year?",
     "answer": "Venus",
-    "decoy": "Mars"
+    "decoy": "Mars",
+    "botAnswers": [
+      "Neptune",
+      "Mercury",
+      "Saturn",
+      "Jupiter",
+      "The Milky Way",
+      "Andromeda"
+    ]
   },
   {
     "category": "Space",
     "question": "What do we call a rock from space that reaches Earth's surface?",
     "answer": "Meteorite",
-    "decoy": "Comet"
+    "decoy": "Comet",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "Jupiter"
+    ]
   },
   {
     "category": "Space",
     "question": "Which planet is famous for its Great Red Spot?",
     "answer": "Jupiter",
-    "decoy": "Neptune"
+    "decoy": "Neptune",
+    "botAnswers": [
+      "Mars",
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "The Milky Way",
+      "Andromeda"
+    ]
   },
   {
     "category": "Space",
     "question": "What is the closest star to Earth after the Sun?",
     "answer": "Proxima Centauri",
-    "decoy": "Sirius"
+    "decoy": "Sirius",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "Jupiter"
+    ]
   },
   {
     "category": "Space",
     "question": "What is the boundary around a black hole beyond which light cannot escape called?",
     "answer": "Event horizon",
-    "decoy": "Asteroid belt"
+    "decoy": "Asteroid belt",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "Jupiter"
+    ]
   },
   {
     "category": "Space",
     "question": "What type of galaxy is the Milky Way?",
     "answer": "Barred spiral galaxy",
-    "decoy": "Elliptical galaxy"
+    "decoy": "Elliptical galaxy",
+    "botAnswers": [
+      "Neptune",
+      "Mars",
+      "Mercury",
+      "Venus",
+      "Saturn",
+      "Jupiter"
+    ]
   },
   {
     "category": "Science",
     "question": "What gas do plants absorb from the atmosphere during photosynthesis?",
     "answer": "Carbon dioxide",
-    "decoy": "Oxygen"
+    "decoy": "Oxygen",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Au",
+      "Ag"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the chemical symbol for gold?",
     "answer": "Au",
-    "decoy": "Ag"
+    "decoy": "Ag",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "How many chambers does a human heart have?",
     "answer": "Four",
-    "decoy": "Three"
+    "decoy": "Three",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the hardest naturally occurring mineral on the Mohs scale?",
     "answer": "Diamond",
-    "decoy": "Quartz"
+    "decoy": "Quartz",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the approximate speed of light in a vacuum?",
     "answer": "300,000 kilometers per second",
-    "decoy": "30,000 kilometers per second"
+    "decoy": "30,000 kilometers per second",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the center of an atom called?",
     "answer": "Nucleus",
-    "decoy": "Electron cloud"
+    "decoy": "Electron cloud",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "Which subatomic particle has a negative electric charge?",
     "answer": "Electron",
-    "decoy": "Proton"
+    "decoy": "Proton",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the chemical formula for water?",
     "answer": "H₂O",
-    "decoy": "CO₂"
+    "decoy": "CO₂",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "At what temperature does water freeze on the Celsius scale at standard pressure?",
     "answer": "0°C",
-    "decoy": "10°C"
+    "decoy": "10°C",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the pH of a neutral solution at 25°C?",
     "answer": "7",
-    "decoy": "5"
+    "decoy": "5",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "Which gas makes up most of Earth's atmosphere?",
     "answer": "Nitrogen",
-    "decoy": "Oxygen"
+    "decoy": "Oxygen",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Au"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the process by which liquid changes into gas called?",
     "answer": "Evaporation",
-    "decoy": "Condensation"
+    "decoy": "Condensation",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the study of fungi called?",
     "answer": "Mycology",
-    "decoy": "Ecology"
+    "decoy": "Ecology",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "Which scale is commonly used to measure mineral hardness?",
     "answer": "Mohs scale",
-    "decoy": "Richter scale"
+    "decoy": "Richter scale",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the most abundant element in the universe?",
     "answer": "Hydrogen",
-    "decoy": "Oxygen"
+    "decoy": "Oxygen",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Au"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the main gas in a typical helium party balloon?",
     "answer": "Helium",
-    "decoy": "Hydrogen"
+    "decoy": "Hydrogen",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What kind of energy is stored in a stretched spring?",
     "answer": "Potential energy",
-    "decoy": "Sound energy"
+    "decoy": "Sound energy",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "Which metal is strongly attracted to a magnet in everyday examples?",
     "answer": "Iron",
-    "decoy": "Copper"
+    "decoy": "Copper",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the boiling point of water in Celsius at sea level?",
     "answer": "100°C",
-    "decoy": "80°C"
+    "decoy": "80°C",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the name for animals that are active mainly at night?",
     "answer": "Nocturnal",
-    "decoy": "Diurnal"
+    "decoy": "Diurnal",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "Which vitamin can the human body produce in skin with sunlight exposure?",
     "answer": "Vitamin D",
-    "decoy": "Vitamin C"
+    "decoy": "Vitamin C",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the approximate number of bones in an adult human?",
     "answer": "206",
-    "decoy": "306"
+    "decoy": "306",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "Which organ filters blood to make urine?",
     "answer": "Kidneys",
-    "decoy": "Lungs"
+    "decoy": "Lungs",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the largest organ of the human body?",
     "answer": "Skin",
-    "decoy": "Liver"
+    "decoy": "Liver",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "Which blood cells help fight infections?",
     "answer": "White blood cells",
-    "decoy": "Red blood cells"
+    "decoy": "Red blood cells",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Science",
     "question": "What is the name of the pigment that gives skin much of its color?",
     "answer": "Melanin",
-    "decoy": "Keratin"
+    "decoy": "Keratin",
+    "botAnswers": [
+      "Mercury",
+      "Gallium",
+      "Uranus",
+      "Saturn",
+      "Carbon dioxide",
+      "Oxygen"
+    ]
   },
   {
     "category": "Food",
     "question": "Which spice comes from the dried stigmas of a crocus flower?",
     "answer": "Saffron",
-    "decoy": "Paprika"
+    "decoy": "Paprika",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Chickpeas",
+      "Lentils",
+      "Almond",
+      "Cashew"
+    ]
   },
   {
     "category": "Food",
     "question": "What is the main ingredient in traditional hummus?",
     "answer": "Chickpeas",
-    "decoy": "Lentils"
+    "decoy": "Lentils",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Almond",
+      "Cashew"
+    ]
   },
   {
     "category": "Food",
     "question": "Which nut is used to make marzipan?",
     "answer": "Almond",
-    "decoy": "Cashew"
+    "decoy": "Cashew",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "What is tofu traditionally made from?",
     "answer": "Soybeans",
-    "decoy": "Chickpeas"
+    "decoy": "Chickpeas",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Lentils",
+      "Almond"
+    ]
   },
   {
     "category": "Food",
     "question": "Which fruit is dried to make prunes?",
     "answer": "Plums",
-    "decoy": "Apricots"
+    "decoy": "Apricots",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "What type of pastry is used for a classic croissant?",
     "answer": "Laminated yeast dough",
-    "decoy": "Shortcrust pastry"
+    "decoy": "Shortcrust pastry",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "Which country is most associated with the origin of sushi as we know it today?",
     "answer": "Japan",
-    "decoy": "Mexico"
+    "decoy": "Mexico",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "What is the main ingredient in guacamole?",
     "answer": "Avocado",
-    "decoy": "Cucumber"
+    "decoy": "Cucumber",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "Which cheese is traditionally used in a Greek salad?",
     "answer": "Feta",
-    "decoy": "Brie"
+    "decoy": "Brie",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "What gives chili peppers their heat?",
     "answer": "Capsaicin",
-    "decoy": "Caffeine"
+    "decoy": "Caffeine",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "Which grain is traditionally used to make risotto?",
     "answer": "Rice",
-    "decoy": "Barley"
+    "decoy": "Barley",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "What is the primary ingredient in miso?",
     "answer": "Fermented soybeans",
-    "decoy": "Fermented potatoes"
+    "decoy": "Fermented potatoes",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "Which fruit is known for having its seeds on the outside of the flesh?",
     "answer": "Strawberry",
-    "decoy": "Raspberry"
+    "decoy": "Raspberry",
+    "botAnswers": [
+      "Banana",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils",
+      "Almond"
+    ]
   },
   {
     "category": "Food",
     "question": "What is the main ingredient in falafel?",
     "answer": "Chickpeas or fava beans",
-    "decoy": "Potatoes"
+    "decoy": "Potatoes",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Food",
     "question": "Which drink is traditionally made by steeping tea leaves in water?",
     "answer": "Tea",
-    "decoy": "Coffee"
+    "decoy": "Coffee",
+    "botAnswers": [
+      "Banana",
+      "Strawberry",
+      "Saffron",
+      "Paprika",
+      "Chickpeas",
+      "Lentils"
+    ]
   },
   {
     "category": "Geography",
     "question": "What is the largest ocean on Earth?",
     "answer": "Pacific Ocean",
-    "decoy": "Atlantic Ocean"
+    "decoy": "Atlantic Ocean",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Canberra",
+      "Sydney",
+      "Nile",
+      "Amazon"
+    ]
   },
   {
     "category": "Geography",
     "question": "What is the capital city of Australia?",
     "answer": "Canberra",
-    "decoy": "Sydney"
+    "decoy": "Sydney",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Nile",
+      "Amazon"
+    ]
   },
   {
     "category": "Geography",
     "question": "Which river flows through Egypt and into the Mediterranean Sea?",
     "answer": "Nile",
-    "decoy": "Amazon"
+    "decoy": "Amazon",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "What is the smallest independent country by area?",
     "answer": "Vatican City",
-    "decoy": "Monaco"
+    "decoy": "Monaco",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "Which continent contains the Sahara Desert?",
     "answer": "Africa",
-    "decoy": "Asia"
+    "decoy": "Asia",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "What is the capital of Canada?",
     "answer": "Ottawa",
-    "decoy": "Toronto"
+    "decoy": "Toronto",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "Which country is home to the ancient city of Petra?",
     "answer": "Jordan",
-    "decoy": "Egypt"
+    "decoy": "Egypt",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "Mount Everest lies in which mountain range?",
     "answer": "Himalayas",
-    "decoy": "Andes"
+    "decoy": "Andes",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "Which U.S. state is nicknamed the Aloha State?",
     "answer": "Hawaii",
-    "decoy": "Florida"
+    "decoy": "Florida",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "What is the world's largest hot desert?",
     "answer": "Sahara",
-    "decoy": "Gobi"
+    "decoy": "Gobi",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "Which country has the city of Kyoto?",
     "answer": "Japan",
-    "decoy": "China"
+    "decoy": "China",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "What is the capital of New Zealand?",
     "answer": "Wellington",
-    "decoy": "Auckland"
+    "decoy": "Auckland",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "Which European country is shaped like a boot?",
     "answer": "Italy",
-    "decoy": "Greece"
+    "decoy": "Greece",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "Which country is home to the Great Barrier Reef?",
     "answer": "Australia",
-    "decoy": "South Africa"
+    "decoy": "South Africa",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "Geography",
     "question": "What is the largest country in the world by land area?",
     "answer": "Russia",
-    "decoy": "Canada"
+    "decoy": "Canada",
+    "botAnswers": [
+      "Scotland",
+      "Ireland",
+      "Pacific Ocean",
+      "Atlantic Ocean",
+      "Canberra",
+      "Sydney"
+    ]
   },
   {
     "category": "History",
     "question": "Which ancient civilization built the pyramids at Giza?",
     "answer": "Ancient Egyptians",
-    "decoy": "Ancient Greeks"
+    "decoy": "Ancient Greeks",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Italy",
+      "France",
+      "Berlin Wall",
+      "Great Wall of China"
+    ]
   },
   {
     "category": "History",
     "question": "In which country did the Renaissance begin?",
     "answer": "Italy",
-    "decoy": "France"
+    "decoy": "France",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Berlin Wall",
+      "Great Wall of China"
+    ]
   },
   {
     "category": "History",
     "question": "Which wall fell in 1989, symbolizing the end of the Cold War era in Europe?",
     "answer": "Berlin Wall",
-    "decoy": "Great Wall of China"
+    "decoy": "Great Wall of China",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Italy",
+      "France"
+    ]
   },
   {
     "category": "History",
     "question": "Who was the first person to walk on the Moon?",
     "answer": "Neil Armstrong",
-    "decoy": "Buzz Aldrin"
+    "decoy": "Buzz Aldrin",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Italy",
+      "France"
+    ]
   },
   {
     "category": "History",
     "question": "Which ship famously sank on its maiden voyage in 1912?",
     "answer": "Titanic",
-    "decoy": "Lusitania"
+    "decoy": "Lusitania",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Italy",
+      "France"
+    ]
   },
   {
     "category": "History",
     "question": "What writing material made from a plant was used in ancient Egypt?",
     "answer": "Papyrus",
-    "decoy": "Parchment"
+    "decoy": "Parchment",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Italy",
+      "France"
+    ]
   },
   {
     "category": "History",
     "question": "Which city was buried by the eruption of Mount Vesuvius in AD 79?",
     "answer": "Pompeii",
-    "decoy": "Athens"
+    "decoy": "Athens",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Italy",
+      "France"
+    ]
   },
   {
     "category": "History",
     "question": "What was the name of the trade route network linking East Asia with the Mediterranean?",
     "answer": "Silk Road",
-    "decoy": "Spice Circle"
+    "decoy": "Spice Circle",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Italy",
+      "France"
+    ]
   },
   {
     "category": "History",
     "question": "Which invention is Johannes Gutenberg famous for helping popularize in Europe?",
     "answer": "Movable-type printing press",
-    "decoy": "Steam engine"
+    "decoy": "Steam engine",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Italy",
+      "France"
+    ]
   },
   {
     "category": "History",
     "question": "What ancient Roman structure was used for gladiatorial contests?",
     "answer": "Colosseum",
-    "decoy": "Parthenon"
+    "decoy": "Parthenon",
+    "botAnswers": [
+      "Romans",
+      "Vikings",
+      "Ancient Egyptians",
+      "Ancient Greeks",
+      "Italy",
+      "France"
+    ]
   },
   {
     "category": "Language & Culture",
     "question": "What is the Japanese art of paper folding called?",
     "answer": "Origami",
-    "decoy": "Ikebana"
+    "decoy": "Ikebana",
+    "botAnswers": [
+      "26",
+      "24",
+      "Portuguese",
+      "Spanish",
+      "Palindrome",
+      "Anagram"
+    ]
   },
   {
     "category": "Language & Culture",
     "question": "How many letters are in the English alphabet?",
     "answer": "26",
-    "decoy": "24"
+    "decoy": "24",
+    "botAnswers": [
+      "Origami",
+      "Ikebana",
+      "Portuguese",
+      "Spanish",
+      "Palindrome",
+      "Anagram"
+    ]
   },
   {
     "category": "Language & Culture",
     "question": "What is the official language of Brazil?",
     "answer": "Portuguese",
-    "decoy": "Spanish"
+    "decoy": "Spanish",
+    "botAnswers": [
+      "Origami",
+      "Ikebana",
+      "26",
+      "24",
+      "Palindrome",
+      "Anagram"
+    ]
   },
   {
     "category": "Language & Culture",
     "question": "What is a word that reads the same forward and backward called?",
     "answer": "Palindrome",
-    "decoy": "Anagram"
+    "decoy": "Anagram",
+    "botAnswers": [
+      "Origami",
+      "Ikebana",
+      "26",
+      "24",
+      "Portuguese",
+      "Spanish"
+    ]
   },
   {
     "category": "Language & Culture",
     "question": "Which instrument typically has 88 keys on a standard modern version?",
     "answer": "Piano",
-    "decoy": "Accordion"
+    "decoy": "Accordion",
+    "botAnswers": [
+      "Origami",
+      "Ikebana",
+      "26",
+      "24",
+      "Portuguese",
+      "Spanish"
+    ]
   },
   {
     "category": "Language & Culture",
     "question": "What is the traditional Korean garment called?",
     "answer": "Hanbok",
-    "decoy": "Kimono"
+    "decoy": "Kimono",
+    "botAnswers": [
+      "Origami",
+      "Ikebana",
+      "26",
+      "24",
+      "Portuguese",
+      "Spanish"
+    ]
   },
   {
     "category": "Language & Culture",
     "question": "Which board game features properties such as Boardwalk and Park Place?",
     "answer": "Monopoly",
-    "decoy": "Clue"
+    "decoy": "Clue",
+    "botAnswers": [
+      "Origami",
+      "Ikebana",
+      "26",
+      "24",
+      "Portuguese",
+      "Spanish"
+    ]
   },
   {
     "category": "Language & Culture",
     "question": "What is the name of the wizarding school in the Harry Potter series?",
     "answer": "Hogwarts",
-    "decoy": "Narnia Academy"
+    "decoy": "Narnia Academy",
+    "botAnswers": [
+      "Origami",
+      "Ikebana",
+      "26",
+      "24",
+      "Portuguese",
+      "Spanish"
+    ]
   },
   {
     "category": "Nature",
     "question": "What is the largest type of tree by volume commonly cited?",
     "answer": "Giant sequoia",
-    "decoy": "Coast redwood"
+    "decoy": "Coast redwood",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Germination",
+      "Pollination"
+    ]
   },
   {
     "category": "Nature",
     "question": "What is the process called when a seed begins to grow?",
     "answer": "Germination",
-    "decoy": "Pollination"
+    "decoy": "Pollination",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood"
+    ]
   },
   {
     "category": "Nature",
     "question": "Which part of a plant usually absorbs water from the soil?",
     "answer": "Roots",
-    "decoy": "Petals"
+    "decoy": "Petals",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood"
+    ]
   },
   {
     "category": "Nature",
     "question": "What is molten rock beneath Earth's surface called?",
     "answer": "Magma",
-    "decoy": "Lava"
+    "decoy": "Lava",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood"
+    ]
   },
   {
     "category": "Nature",
     "question": "What is molten rock called after it reaches Earth's surface?",
     "answer": "Lava",
-    "decoy": "Magma"
+    "decoy": "Magma",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood"
+    ]
   },
   {
     "category": "Nature",
     "question": "What is the name for a scientist who studies weather?",
     "answer": "Meteorologist",
-    "decoy": "Geologist"
+    "decoy": "Geologist",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood"
+    ]
   },
   {
     "category": "Nature",
     "question": "What is the seasonal movement of animals from one region to another called?",
     "answer": "Migration",
-    "decoy": "Hibernation"
+    "decoy": "Hibernation",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood"
+    ]
   },
   {
     "category": "Nature",
     "question": "Which natural event is measured using the moment magnitude scale?",
     "answer": "Earthquake",
-    "decoy": "Hurricane"
+    "decoy": "Hurricane",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood"
+    ]
   },
   {
     "category": "Nature",
     "question": "What type of cloud is often associated with thunderstorms?",
     "answer": "Cumulonimbus",
-    "decoy": "Cirrus"
+    "decoy": "Cirrus",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood"
+    ]
   },
   {
     "category": "Nature",
     "question": "What do bees transfer between flowers that helps many plants reproduce?",
     "answer": "Pollen",
-    "decoy": "Sap"
+    "decoy": "Sap",
+    "botAnswers": [
+      "Bat",
+      "Flying squirrel",
+      "A flamboyance",
+      "A shimmer",
+      "Giant sequoia",
+      "Coast redwood"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "What is the fear of spiders called?",
     "answer": "Arachnophobia",
-    "decoy": "Acrophobia"
+    "decoy": "Acrophobia",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Tittle",
+      "Cedilla",
+      "Petrichor",
+      "Geosmin"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "What is the dot over a lowercase 'i' or 'j' called?",
     "answer": "Tittle",
-    "decoy": "Cedilla"
+    "decoy": "Cedilla",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Arachnophobia",
+      "Acrophobia",
+      "Petrichor",
+      "Geosmin"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "What is the name for the smell often produced after rain on dry ground?",
     "answer": "Petrichor",
-    "decoy": "Geosmin"
+    "decoy": "Geosmin",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Arachnophobia",
+      "Acrophobia",
+      "Tittle",
+      "Cedilla"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "Which animal's fingerprints can resemble human ones?",
     "answer": "Koala",
-    "decoy": "Sloth"
+    "decoy": "Sloth",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Arachnophobia",
+      "Acrophobia",
+      "Tittle",
+      "Cedilla"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "What is the only letter that does not appear in any U.S. state name?",
     "answer": "Q",
-    "decoy": "X"
+    "decoy": "X",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Arachnophobia",
+      "Acrophobia",
+      "Tittle",
+      "Cedilla"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "How many sides does a standard stop sign have?",
     "answer": "Eight",
-    "decoy": "Six"
+    "decoy": "Six",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Arachnophobia",
+      "Acrophobia",
+      "Tittle",
+      "Cedilla"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "What is the name for a shape with five sides?",
     "answer": "Pentagon",
-    "decoy": "Hexagon"
+    "decoy": "Hexagon",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Arachnophobia",
+      "Acrophobia",
+      "Tittle",
+      "Cedilla"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "What do you call a group of stars forming a recognizable pattern in the sky?",
     "answer": "Constellation",
-    "decoy": "Galaxy"
+    "decoy": "Galaxy",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Arachnophobia",
+      "Acrophobia",
+      "Tittle",
+      "Cedilla"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "What is the name for a word formed from initials and pronounced as a word, such as NASA?",
     "answer": "Acronym",
-    "decoy": "Homonym"
+    "decoy": "Homonym",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Arachnophobia",
+      "Acrophobia",
+      "Tittle",
+      "Cedilla"
+    ]
   },
   {
     "category": "Odd Facts",
     "question": "Which common household item was originally developed as a wallpaper cleaner and later used as a children's toy?",
     "answer": "Play-Doh",
-    "decoy": "Silly Putty"
+    "decoy": "Silly Putty",
+    "botAnswers": [
+      "Poop",
+      "Eggs",
+      "Arachnophobia",
+      "Acrophobia",
+      "Tittle",
+      "Cedilla"
+    ]
+  },
+  {
+    "category": "Human Body",
+    "question": "Which part of the eye controls how much light enters?",
+    "answer": "Iris",
+    "decoy": "Retina",
+    "botAnswers": [
+      "Stapes",
+      "Patella",
+      "Liver",
+      "Lung",
+      "Alveoli",
+      "Neurons"
+    ]
+  },
+  {
+    "category": "Human Body",
+    "question": "What is the body's largest internal organ?",
+    "answer": "Liver",
+    "decoy": "Lung",
+    "botAnswers": [
+      "Stapes",
+      "Patella",
+      "Iris",
+      "Retina",
+      "Alveoli",
+      "Neurons"
+    ]
+  },
+  {
+    "category": "Human Body",
+    "question": "Which tiny structures in the lungs exchange oxygen and carbon dioxide?",
+    "answer": "Alveoli",
+    "decoy": "Neurons",
+    "botAnswers": [
+      "Stapes",
+      "Patella",
+      "Iris",
+      "Retina",
+      "Liver",
+      "Lung"
+    ]
+  },
+  {
+    "category": "Human Body",
+    "question": "What connects muscles to bones?",
+    "answer": "Tendons",
+    "decoy": "Ligaments",
+    "botAnswers": [
+      "Stapes",
+      "Patella",
+      "Iris",
+      "Retina",
+      "Liver",
+      "Lung"
+    ]
+  },
+  {
+    "category": "Human Body",
+    "question": "Which organ produces insulin?",
+    "answer": "Pancreas",
+    "decoy": "Gallbladder",
+    "botAnswers": [
+      "Stapes",
+      "Patella",
+      "Iris",
+      "Retina",
+      "Liver",
+      "Lung"
+    ]
+  },
+  {
+    "category": "Human Body",
+    "question": "What is the kneecap also called?",
+    "answer": "Patella",
+    "decoy": "Scapula",
+    "botAnswers": [
+      "Stapes",
+      "Iris",
+      "Retina",
+      "Liver",
+      "Lung",
+      "Alveoli"
+    ]
+  },
+  {
+    "category": "Human Body",
+    "question": "Which blood type is often called the universal red-cell donor?",
+    "answer": "O negative",
+    "decoy": "AB positive",
+    "botAnswers": [
+      "Stapes",
+      "Patella",
+      "Iris",
+      "Retina",
+      "Liver",
+      "Lung"
+    ]
   }
 ]
