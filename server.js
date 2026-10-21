@@ -1,206 +1,25 @@
-const express = require('express');
-const http = require('http');
-const crypto = require('crypto');
-const { Server } = require('socket.io');
-const QUESTIONS = require('./questions.json');
-
-const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
-const rooms = new Map();
-const PORT = process.env.PORT || 3000;
-
-app.use(express.static('public'));
-app.get('/health', (_req, res) => res.json({ ok: true, rooms: rooms.size }));
-
-function token() {
-  return crypto.randomBytes(8).toString('hex');
-}
-function code() {
-  let value;
-  do {
-    value = Array.from({ length: 4 }, () => 'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.random() * 24 | 0]).join('');
-  } while (rooms.has(value));
-  return value;
-}
-function pub(room, who) {
-  const me = room.players.find(player => player.id === who) || null;
-  const showResults = ['reveal', 'final'].includes(room.phase);
-  return {
-    code: room.code,
-    phase: room.phase,
-    round: room.round,
-    players: room.players.map(({ id, name, score, connected }) => ({ id, name, score, connected, answered: Object.hasOwn(room.answers || {}, id), voted: Object.hasOwn(room.votes || {}, id) })),
-    question: room.q ? { category: room.q.category, question: room.q.question } : null,
-    answers: ['voting', 'reveal', 'final'].includes(room.phase)
-      ? room.board.map(answer => ({
-          id: answer.id,
-          text: answer.text,
-          truth: showResults ? answer.truth : undefined,
-          decoy: showResults ? answer.decoy : undefined,
-          authors: showResults ? answer.authors.map(id => room.players.find(p => p.id === id)?.name || 'Player') : undefined,
-          own: answer.authors.includes(who)
-        }))
-      : [],
-    me: me ? { ...me, socket: undefined, answered: Object.hasOwn(room.answers || {}, me.id), voted: Object.hasOwn(room.votes || {}, me.id) } : null,
-    finalScores: room.finalScores || []
-  };
-}
-function send(room) {
-  if (room.host) io.to(room.host).emit('state', pub(room, null));
-  for (const player of room.players) {
-    if (player.socket) io.to(player.socket).emit('state', pub(room, player.id));
-  }
-}
-function timer(room, ms, callback) {
-  clearTimeout(room.timer);
-  room.timer = setTimeout(callback, ms);
-}
-function nextQuestion(room) {
-  if (!room.usedQuestions) room.usedQuestions = new Set();
-  if (room.usedQuestions.size >= QUESTIONS.length) room.usedQuestions.clear();
-  const available = QUESTIONS.map((question, index) => ({ question, index }))
-    .filter(item => !room.usedQuestions.has(item.index));
-  const picked = available[(Math.random() * available.length) | 0];
-  room.usedQuestions.add(picked.index);
-  return picked.question;
-}
-function begin(room) {
-  if (room.round >= 7) {
-    room.phase = 'final';
-    room.finalScores = [...room.players]
-      .sort((a, b) => b.score - a.score)
-      .map((player, index) => ({ name: player.name, score: player.score, rank: index + 1 }));
-    send(room);
-    return;
-  }
-  room.round += 1;
-  room.q = nextQuestion(room);
-  room.answers = {};
-  room.votes = {};
-  room.flags = {};
-  room.board = [];
-  room.phase = 'writing';
-  send(room);
-  timer(room, 45000, () => board(room));
-}
-function board(room) {
-  if (room.phase !== 'writing') return;
-  const grouped = new Map();
-  for (const [playerId, text] of Object.entries(room.answers)) {
-    const key = text.trim().toLowerCase();
-    if (!grouped.has(key)) grouped.set(key, { id: token(), text, authors: [], truth: false, decoy: false });
-    grouped.get(key).authors.push(playerId);
-  }
-  room.board = [
-    ...grouped.values(),
-    { id: token(), text: room.q.answer, authors: [], truth: true, decoy: false },
-    { id: token(), text: room.q.decoy, authors: [], truth: false, decoy: true }
-  ].sort(() => Math.random() - 0.5);
-  room.phase = 'voting';
-  send(room);
-  timer(room, 30000, () => reveal(room));
-}
-function reveal(room) {
-  if (room.phase !== 'voting') return;
-  for (const [playerId, answerId] of Object.entries(room.votes)) {
-    const answer = room.board.find(item => item.id === answerId);
-    const player = room.players.find(item => item.id === playerId);
-    if (!answer || !player) continue;
-    if (answer.truth) player.score += room.round === 7 ? 2000 : 1000;
-    if (!answer.truth && !answer.decoy && !answer.authors.includes(playerId)) {
-      for (const authorId of answer.authors) {
-        const author = room.players.find(item => item.id === authorId);
-        if (author) author.score += room.round === 7 ? 1000 : 500;
-      }
-    }
-  }
-  for (const [playerId, answerId] of Object.entries(room.flags)) {
-    if (room.board.find(answer => answer.id === answerId)?.decoy) {
-      const player = room.players.find(item => item.id === playerId);
-      if (player) player.score += room.round === 7 ? 500 : 250;
-    }
-  }
-  room.phase = 'reveal';
-  send(room);
-  timer(room, 7000, () => begin(room));
-}
-
-io.on('connection', socket => {
-  socket.on('createRoom', () => {
-    const roomCode = code();
-    const room = { code: roomCode, host: socket.id, players: [], phase: 'lobby', round: 0 };
-    rooms.set(roomCode, room);
-    socket.data.host = roomCode;
-    socket.emit('created', roomCode);
-    send(room);
-  });
-
-  socket.on('joinRoom', ({ code: roomCode, name } = {}) => {
-    const room = rooms.get(String(roomCode || '').toUpperCase());
-    const cleanName = String(name || '').trim().slice(0, 18);
-    if (!room) return socket.emit('errorMessage', 'Room code not found.');
-    if (room.phase !== 'lobby') return socket.emit('errorMessage', 'That game has already started.');
-    if (!cleanName) return socket.emit('errorMessage', 'Enter your name.');
-    if (room.players.length >= 8) return socket.emit('errorMessage', 'Room is full.');
-    if (room.players.some(player => player.name.toLowerCase() === cleanName.toLowerCase())) {
-      return socket.emit('errorMessage', 'That name is already taken.');
-    }
-    const player = { id: token(), name: cleanName, score: 0, socket: socket.id, connected: true };
-    room.players.push(player);
-    socket.data.room = room.code;
-    socket.data.player = player.id;
-    socket.emit('joined', player.id);
-    send(room);
-  });
-
-  socket.on('startGame', () => {
-    const room = rooms.get(socket.data.host);
-    if (room && room.host === socket.id && room.phase === 'lobby' && room.players.length >= 3) begin(room);
-  });
-
-  socket.on('submitAnswer', value => {
-    const room = rooms.get(socket.data.room);
-    const playerId = socket.data.player;
-    if (!room || room.phase !== 'writing' || !room.players.some(player => player.id === playerId)) return;
-    if (Object.hasOwn(room.answers, playerId)) return socket.emit('errorMessage', 'Your fake is already locked in.');
-    const answer = String(value || '').trim().slice(0, 55);
-    if (!answer) return socket.emit('errorMessage', 'Enter a fake answer first.');
-    if (answer.toLowerCase() === room.q.answer.toLowerCase()) {
-      return socket.emit('errorMessage', 'That is the truth! Make up a fake.');
-    }
-    room.answers[playerId] = answer;
-    socket.emit('notice', 'Fake locked in. Waiting for everyone…');
-    send(room);
-    if (room.players.every(player => Object.hasOwn(room.answers, player.id))) board(room);
-  });
-
-  socket.on('vote', ({ answerId, decoyId } = {}) => {
-    const room = rooms.get(socket.data.room);
-    const playerId = socket.data.player;
-    if (!room || room.phase !== 'voting') return;
-    if (Object.hasOwn(room.votes, playerId)) return socket.emit('errorMessage', 'Your vote is already locked in.');
-    const answer = room.board.find(item => item.id === answerId);
-    if (!answer || answer.authors.includes(playerId)) return socket.emit('errorMessage', 'Choose an answer that is not your own fake.');
-    room.votes[playerId] = answerId;
-    if (decoyId && decoyId !== answerId && room.board.some(item => item.id === decoyId)) {
-      room.flags[playerId] = decoyId;
-    }
-    socket.emit('notice', 'Vote locked in. Waiting for everyone…');
-    send(room);
-    if (room.players.every(player => Object.hasOwn(room.votes, player.id))) reveal(room);
-  });
-
-  socket.on('disconnect', () => {
-    const room = rooms.get(socket.data.room);
-    if (room) {
-      const player = room.players.find(item => item.id === socket.data.player);
-      if (player) {
-        player.connected = false;
-        send(room);
-      }
-    }
-  });
+const express=require('express'),http=require('http'),crypto=require('crypto'),{Server}=require('socket.io'),QUESTIONS=require('./questions.json');
+const app=express(),server=http.createServer(app),io=new Server(server),rooms=new Map(),PORT=process.env.PORT||3000,FAST=process.env.SUS_TEST_FAST_TIMERS==='1';
+app.use(express.static('public'));app.get('/health',(_q,r)=>r.json({ok:true,rooms:rooms.size}));
+const token=()=>crypto.randomBytes(8).toString('hex'),norm=v=>String(v||'').trim().toLocaleLowerCase();
+function code(){let v;do{v=Array.from({length:4},()=> 'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.random()*24|0]).join('')}while(rooms.has(v));return v}
+function pub(r,who){const me=r.players.find(p=>p.id===who)||null,show=['reveal','final'].includes(r.phase);return{code:r.code,phase:r.phase,round:r.round,players:r.players.map(({id,name,score,connected})=>({id,name,score,connected,answered:Object.hasOwn(r.answers||{},id),voted:Object.hasOwn(r.votes||{},id)})),question:r.q?{category:r.q.category,question:r.q.question}:null,answers:['voting','reveal','final'].includes(r.phase)?r.board.map(a=>({id:a.id,text:a.text,truth:show?a.truth:undefined,decoy:show?a.decoy:undefined,authors:show?a.authors.map(id=>r.players.find(p=>p.id===id)?.name||'Player'):undefined,own:a.authors.includes(who)})):[],me:me?{id:me.id,name:me.name,score:me.score,answered:Object.hasOwn(r.answers||{},me.id),voted:Object.hasOwn(r.votes||{},me.id)}:null,finalScores:r.finalScores||[]}}
+function send(r){if(r.host)io.to(r.host).emit('state',pub(r,null));for(const p of r.players)if(p.socket)io.to(p.socket).emit('state',pub(r,p.id))}
+function timer(r,ms,fn){clearTimeout(r.timer);r.timer=setTimeout(fn,FAST?Math.min(ms,500):ms)}
+function nextQuestion(r){if(!r.usedQuestions)r.usedQuestions=new Set();const unique=new Map();QUESTIONS.forEach(q=>{const k=norm(q.question);if(!unique.has(k))unique.set(k,q)});if(r.usedQuestions.size>=unique.size)r.usedQuestions.clear();const a=[...unique.entries()].filter(([k])=>!r.usedQuestions.has(k)),[k,q]=a[Math.random()*a.length|0];r.usedQuestions.add(k);return q}
+const active=r=>r.players.filter(p=>p.connected&&p.socket);
+function maybeAdvance(r){if(!r||!['writing','voting'].includes(r.phase))return;const a=active(r);if(r.phase==='writing'&&a.every(p=>Object.hasOwn(r.answers,p.id)))board(r);else if(r.phase==='voting'&&a.every(p=>Object.hasOwn(r.votes,p.id)))reveal(r)}
+function begin(r){if(r.round>=7){r.phase='final';r.finalScores=[...r.players].sort((a,b)=>b.score-a.score||a.name.localeCompare(b.name)).map((p,i)=>({name:p.name,score:p.score,rank:i+1,connected:p.connected}));send(r);return}r.round++;r.q=nextQuestion(r);r.answers={};r.votes={};r.flags={};r.board=[];r.phase='writing';send(r);timer(r,45000,()=>board(r))}
+function board(r){if(r.phase!=='writing')return;const grouped=new Map();for(const [id,text] of Object.entries(r.answers)){const k=norm(text);if(!grouped.has(k))grouped.set(k,{id:token(),text,authors:[],truth:false,decoy:false});grouped.get(k).authors.push(id)}const used=new Set([...grouped.keys(),norm(r.q.answer)]),candidates=[r.q.decoy,...(r.q.decoys||[]),...QUESTIONS.flatMap(q=>[q.answer,q.decoy,...(q.decoys||[])])].filter(Boolean),unique=[...new Map(candidates.map(v=>[norm(v),String(v).trim()])).entries()].filter(([k])=>!used.has(k)),picked=unique[Math.random()*unique.length|0];let d=picked?picked[1]:'A secret fifth-dimensional sandwich';while(used.has(norm(d)))d+=' (Decoy)';r.board=[...grouped.values(),{id:token(),text:r.q.answer,authors:[],truth:true,decoy:false},{id:token(),text:d,authors:[],truth:false,decoy:true}].sort(()=>Math.random()-.5);r.phase='voting';send(r);timer(r,30000,()=>reveal(r))}
+function reveal(r){if(r.phase!=='voting')return;for(const [pid,aid] of Object.entries(r.votes)){const a=r.board.find(x=>x.id===aid),p=r.players.find(x=>x.id===pid);if(!a||!p)continue;if(a.truth)p.score+=r.round===7?2000:1000;if(!a.truth&&!a.decoy&&!a.authors.includes(pid))for(const id of a.authors){const author=r.players.find(x=>x.id===id);if(author)author.score+=r.round===7?1000:500}}for(const [pid,aid] of Object.entries(r.flags))if(r.board.find(a=>a.id===aid)?.decoy){const p=r.players.find(x=>x.id===pid);if(p)p.score+=r.round===7?500:250}r.phase='reveal';send(r);timer(r,7000,()=>begin(r))}
+function restart(r){clearTimeout(r.timer);Object.assign(r,{phase:'lobby',round:0,q:null,answers:{},votes:{},flags:{},board:[],finalScores:[],usedQuestions:new Set()});for(const p of r.players)p.score=0;send(r)}
+io.on('connection',s=>{
+ s.on('createRoom',()=>{const c=code(),r={code:c,host:s.id,players:[],phase:'lobby',round:0,answers:{},votes:{},flags:{},board:[],finalScores:[],usedQuestions:new Set()};rooms.set(c,r);s.data.host=c;s.emit('created',c);send(r)});
+ s.on('joinRoom',({code:c,name,playerId}={})=>{const r=rooms.get(String(c||'').toUpperCase()),n=String(name||'').trim().slice(0,18);if(!r)return s.emit('errorMessage','Room code not found.');if(!n)return s.emit('errorMessage','Enter your name.');let p=playerId?r.players.find(x=>x.id===playerId&&norm(x.name)===norm(n)):null;if(!p)p=r.players.find(x=>!x.connected&&norm(x.name)===norm(n));if(p){if(p.socket&&p.socket!==s.id){const old=io.sockets.sockets.get(p.socket);if(old)old.disconnect(true)}p.socket=s.id;p.connected=true;s.data.room=r.code;s.data.player=p.id;s.emit('joined',p.id);send(r);return}if(r.phase!=='lobby')return s.emit('errorMessage','That game has already started. Only players who were already in this room can rejoin mid-game.');if(r.players.length>=8)return s.emit('errorMessage','Room is full.');if(r.players.some(x=>norm(x.name)===norm(n)))return s.emit('errorMessage','That name is already taken.');p={id:token(),name:n,score:0,socket:s.id,connected:true};r.players.push(p);s.data.room=r.code;s.data.player=p.id;s.emit('joined',p.id);send(r)});
+ s.on('startGame',()=>{const r=rooms.get(s.data.host);if(r&&r.host===s.id&&r.phase==='lobby'&&active(r).length>=3)begin(r)});
+ s.on('submitAnswer',v=>{const r=rooms.get(s.data.room),id=s.data.player;if(!r||r.phase!=='writing'||!r.players.some(p=>p.id===id&&p.connected))return;if(Object.hasOwn(r.answers,id))return s.emit('errorMessage','Your fake is already locked in.');const a=String(v||'').trim().slice(0,55);if(!a)return s.emit('errorMessage','Enter a fake answer first.');if(norm(a)===norm(r.q.answer))return s.emit('errorMessage','That is the truth! Make up a fake.');r.answers[id]=a;s.emit('notice','Fake locked in. Waiting for everyone…');send(r);maybeAdvance(r)});
+ s.on('vote',({answerId,decoyId}={})=>{const r=rooms.get(s.data.room),id=s.data.player;if(!r||r.phase!=='voting'||!r.players.some(p=>p.id===id&&p.connected))return;if(Object.hasOwn(r.votes,id))return s.emit('errorMessage','Your vote is already locked in.');const a=r.board.find(x=>x.id===answerId);if(!a||a.authors.includes(id))return s.emit('errorMessage','Choose an answer that is not your own fake.');r.votes[id]=answerId;if(decoyId&&decoyId!==answerId&&r.board.some(x=>x.id===decoyId))r.flags[id]=decoyId;s.emit('notice','Vote locked in. Waiting for everyone…');send(r);maybeAdvance(r)});
+ s.on('playAgain',()=>{const r=rooms.get(s.data.room||s.data.host);if(r&&r.phase==='final'&&(r.players.some(p=>p.id===s.data.player&&p.connected)||r.host===s.id))restart(r)});
+ s.on('disconnect',()=>{const r=rooms.get(s.data.room||s.data.host);if(!r)return;if(r.host===s.id)r.host=null;const p=r.players.find(x=>x.id===s.data.player);if(p&&p.socket===s.id){p.connected=false;p.socket=null}send(r);maybeAdvance(r)})
 });
-
-server.listen(PORT, () => console.log('SUS listening on ' + PORT));
+server.listen(PORT,()=>console.log('SUS listening on '+PORT));
